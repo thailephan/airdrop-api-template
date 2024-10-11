@@ -1,7 +1,8 @@
 import { Helpers } from "./helpers.ts";
 
 export enum Time {
-    SECOND = 1,
+    MiliSecond = 1,
+    SECOND = Time.MiliSecond * 1000,
     MINUTE = Time.SECOND * 60,
     HOUR = Time.MINUTE * 60,
     DAY = Time.HOUR * 24,

@@ -35,15 +35,15 @@ abstract class FetchHeaders {
         this.extend(dst, this.defaultHeaders);
     }
 
-    protected get() {
+    get() {
         // const headers = this.copy(this.headers);
         // return headers;
         return this.headers;
     }
-    protected set(headers: Headers) {
+    set(headers: Headers) {
         this.headers = headers;
     }
-    protected setKey(key: string, value: string) {
+    setKey(key: string, value: string) {
         this.headers.set(key, value);
     }
 }

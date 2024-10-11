@@ -1,11 +1,11 @@
 import { InitData, InitDataExtractor } from "./common/initData.ts";
 import { logger } from "./common/logger.ts";
-import { Timer } from "./common/timer.ts";
+import { Time, Timer } from "./common/timer.ts";
 import { AppProxy } from "./services/proxy/proxy.ts";
 
 abstract class TelegramApplication {
-    private MIN_EXECUTION_INTERVAL: number = 30 * 60;    
-    private MAX_EXECUTION_INTERVAL: number = 60 * 60;
+    private MIN_EXECUTION_INTERVAL: number = Time.HOUR * 4;    
+    private MAX_EXECUTION_INTERVAL: number = Time.HOUR * 6;
     private MAX_RETRY: number = 5;
 
     protected appName: string = "app-name";
