@@ -80,14 +80,12 @@ abstract class TelegramApplication {
     }
 
     
-    validateRetry() {
+    onExecutionStart() {
         if (this.isMaxRetryReached()) {
             logger.info(`[${this.appName} ${this.extractedInitData?.user.username}]`, "Max retry reached");
-            return Promise.resolve();
+            return { shouldStop: true };
         }
-    }
-    onExecutionStart() {
-        this.validateRetry();
+        return { shouldStop: false };
     }
 
     onExecutionSuccess() {
@@ -104,8 +102,9 @@ abstract class TelegramApplication {
     }
 
     waitNextExecution() {
-        const { promise, time } = Timer.sleepRandom(this.minExecutionInterval, this.maxExecutionInterval);
-        logger.info(`[${this.appName} ${this.extractedInitData?.user.username}]`, `Next execution in ${time} seconds`);
+        const { promise, timeMs } = Timer.sleepRandom(this.minExecutionInterval, this.maxExecutionInterval);
+        const minutes = Math.floor(timeMs / Time.MINUTE);
+        logger.info(`[${this.appName} ${this.extractedInitData?.user.username}]`, `Next execution in ${minutes} minutes`);
         return promise;
     }
     abstract onRunExecution(): Promise<void>;
@@ -113,7 +112,10 @@ abstract class TelegramApplication {
     async execute() {
         do {
             try {
-                this.onExecutionStart();
+                const { shouldStop } = this.onExecutionStart();
+                if (shouldStop) {
+                    break;
+                }
 
                 await this.onRunExecution();
 
@@ -121,9 +123,11 @@ abstract class TelegramApplication {
             } catch (error) {
                 this.onExecutionFailed(error);
             } finally {
-                this.onExecutionEnd();
+                await this.onExecutionEnd();
             }
         } while(true);
+
+        return Promise.resolve();
     };
 }
 
