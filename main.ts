@@ -14,8 +14,6 @@ class GameFetchHeaders extends FetchHeaders {
 
 class GameTelegramApplication extends TelegramApplication {
     headers: FetchHeaders;
-    accessToken: string = "";
-    refreshToken: string = "";
 
     constructor(initData: string, proxy?: string) {
         super(initData, proxy);
