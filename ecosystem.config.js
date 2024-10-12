@@ -5,7 +5,7 @@ module.exports = {
       time: true,
       script: "./main.ts",
       interpreter: "deno",
-      interpreterArgs: "run --allow-net --allow-read",
+      interpreterArgs: "run --allow-net",
     },
   ]
 };

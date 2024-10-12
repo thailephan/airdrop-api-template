@@ -330,7 +330,7 @@ async function execute(initData: string, proxy?: string) {
             await new Promise(resolve => setTimeout(resolve, waitToTappingTime));
 
             // #region tap
-            for (let i = 0; i < 200; i++) {
+            for (let i = 0; i < 400; i++) {
                 const tapPoints = generateRandomInRange(5, 50);
                 const tapResponse = await Service.tap({ points: tapPoints, userQs, client });
                 console.log(`Tapped ${tapPoints}`, tapResponse);
@@ -377,7 +377,7 @@ async function execute(initData: string, proxy?: string) {
             retry++;
             console.log(e);
         } finally {
-            await new Promise(resolve => setTimeout(resolve, generateRandomInRange(10 * Time.Minute, 30 * Time.Minute)));
+            await new Promise(resolve => setTimeout(resolve, generateRandomInRange(30 * Time.Minute, 60 * Time.Minute)));
         }
     }
 }
@@ -469,6 +469,7 @@ async function main() {
         }
     ]
     await Promise.all(users.map(async (user) => {
+        console.log("Starting user", user.initData);
         return await execute(user.initData, user.proxy);
     }));
 }
