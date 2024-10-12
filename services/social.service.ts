@@ -1,16 +1,18 @@
 class SocialService {
-    static async get(headers: Headers): Promise<GetSocialsResponse> {
+    static async get(headers: Headers, client: Deno.HttpClient): Promise<GetSocialsResponse> {
         const response = await fetch("https://atletaclicker.online/api/v1/socials", {
             "headers": headers,
-            "method": "GET"
+            "method": "GET",
+            client,
         });
         return response.json();
     }
-    static async claimTask(headers: Headers, id: string): Promise<SocialsClaimTaskResponse> {
+    static async claimTask(headers: Headers, client: Deno.HttpClient, id: string): Promise<SocialsClaimTaskResponse> {
         const response = await fetch("https://atletaclicker.online/api/v1/socials/" + id, {
             "headers": headers,
             "method": "POST",
-            "body": JSON.stringify({})
+            "body": JSON.stringify({}),
+            client,
         });
         return response.json();
     }

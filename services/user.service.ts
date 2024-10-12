@@ -1,12 +1,13 @@
 class UserService {
-    static async fetchUsers(headers: Headers, initData: string): Promise<FetchUsersResponse> {
+    static async fetchUsers(headers: Headers, client: Deno.HttpClient, initData: string): Promise<FetchUsersResponse> {
         const body = JSON.stringify({ initData });
         const response = await fetch("https://atletaclicker.online/api/v1/users", {
             "headers": headers,
             "body": body,
             "method": "POST",
             "mode": "cors",
-            "credentials": "include"
+            "credentials": "include",
+            client,
         });
         return response.json();
     }

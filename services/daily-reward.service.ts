@@ -1,16 +1,18 @@
 class DailyRewardService {
-    static async check(headers: Headers): Promise<CheckDailyRewardResponse> {
+    static async check(headers: Headers, client: Deno.HttpClient): Promise<CheckDailyRewardResponse> {
         const response = await fetch("https://atletaclicker.online/api/v1/daily-reward/check", {
             "headers": headers,
-            "method": "GET"
+            "method": "GET",
+            client,
         });
         return response.json();
     }
-    static async claim(headers: Headers): Promise<ClaimDailyRewardResponse> {
+    static async claim(headers: Headers, client: Deno.HttpClient): Promise<ClaimDailyRewardResponse> {
         const response = await fetch("https://atletaclicker.online/api/v1/daily-reward/claim", {
             "headers": headers,
             "method": "POST",
-            "body": JSON.stringify({})
+            "body": JSON.stringify({}),
+            client,
         });
         return response.json();
     }

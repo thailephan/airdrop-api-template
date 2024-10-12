@@ -1,16 +1,18 @@
 class BoostService {
-    static async get(headers: Headers): Promise<GetBoostsResponse> {
+    static async get(headers: Headers, client: Deno.HttpClient): Promise<GetBoostsResponse> {
         const response = await fetch("https://atletaclicker.online/api/v1/boosts", {
           method: "GET",
-          headers: headers
+          headers: headers,
+          client: client,
         });
         return await response.json();
     }
-    static async activateBoost(headers: Headers, id: string): Promise<ActivateBoostResponse> {
+    static async activateBoost(headers: Headers, client: Deno.HttpClient, id: string): Promise<ActivateBoostResponse> {
         const response = await fetch("https://atletaclicker.online/api/v1/boosts/activate/" + id, {
             method: "POST",
             headers: headers,
-            body: JSON.stringify({})
+            body: JSON.stringify({}),
+            client: client,
         });
         return await response.json();
     }

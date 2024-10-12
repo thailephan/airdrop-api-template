@@ -1,16 +1,18 @@
 class UpgradeService {
-    static async getUpgrades(headers: Headers): Promise<GetUpgradeResponse> {
+    static async getUpgrades(headers: Headers, client: Deno.HttpClient): Promise<GetUpgradeResponse> {
         const response = await fetch("https://atletaclicker.online/api/v1/upgrades", {
           method: "GET",
-          headers: headers
+          headers: headers,
+          client,
         });
         return await response.json();
     }
-    static async upgrade(headers: Headers, id: number): Promise<UpgradeResponse> {
+    static async upgrade(headers: Headers, client: Deno.HttpClient, id: number): Promise<UpgradeResponse> {
       const response = await fetch("https://atletaclicker.online/api/v1/upgrades/" + id, {
           method: "POST",
           headers: headers,
-          body: JSON.stringify({})
+          body: JSON.stringify({}),
+          client,
       });
       return await response.json();
     }
