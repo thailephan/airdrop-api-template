@@ -384,6 +384,10 @@ async function execute(initData: string, proxy?: string) {
 async function main() {
     const users = [
         {
+            proxy: "proxymart49580:osknCMky@103.241.199.82:49580", 
+            initData: "user=%7B%22id%22%3A8149102788%2C%22first_name%22%3A%22Anderson%20Amanda%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22andersonamandaw2938%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=6642561980984321425&chat_type=supergroup&start_param=354275138&auth_date=1728712442&hash=2c6b714a87333780fdd416e58858b08be7572890b6a8da4683fb76dac64b30ca",
+        },
+        {
             proxy: "proxymart29181:tOgaGRME@157.66.12.181:29181",
             initData: "user=%7B%22id%22%3A6091532790%2C%22first_name%22%3A%22may%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%20%F0%9F%8C%B1SEED%20%F0%9F%90%B8%F0%9F%92%8ECR%22%2C%22username%22%3A%22xzvtglhp%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=7158128597807651514&start_param=354275138&auth_date=1728699048&hash=c0b664913b5c711e6702791b2d31b7969812030ce76ca318fe4a26c7466f7fcb"
         },
