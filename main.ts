@@ -1,5 +1,3 @@
-import data from "./data.json" with { type: "json" };
-
 const Time  = {
     Second: 1000,
     Minute: 60 * 1000,
@@ -10,10 +8,9 @@ const Time  = {
 const origin = "https://rich-teddy.slex.io";
 const referer = "https://rich-teddy.slex.io/apps/rich-teddy";
 interface Headers {
- cookie: string,
  userQs: string 
 }
-const getHeaders = ({ cookie, userQs }: Headers) => ({
+const getHeaders = ({ userQs }: Headers) => ({
     "Accept": "*/*",
     "Content-Type": "application/json",
     "Accept-Encoding": "gzip, deflate, br, zstd",
@@ -21,7 +18,6 @@ const getHeaders = ({ cookie, userQs }: Headers) => ({
     "Origin": origin,
     "Referer": referer,
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
-    // "Cookie": cookie,
     "Sec-Ch-Ua": '"Brave";v="129", "Not=A?Brand";v="8", "Chromium";v="129"',
     "Sec-Ch-Ua-Mobile": "?0",
     "Sec-Ch-Ua-Platform": '"Windows"',
@@ -242,8 +238,6 @@ const generateRandomInRange = (min: number = 0, max: number = 1) => {
 
 async function execute(initData: string, proxy?: string) {
     const MIN_TAP_ENERGY = 100;
-    // ignore soon
-    const cookie = data[0].cookie;
     const userQs = initData;
     let client: Deno.HttpClient | undefined = undefined;
     if (proxy) {
@@ -271,19 +265,19 @@ async function execute(initData: string, proxy?: string) {
             }
 
             console.log("Check daily login");
-            const dailyLoginResponse = await Service.dailyLogin({ cookie, userQs, client });
+            const dailyLoginResponse = await Service.dailyLogin({ userQs, client });
             if (!dailyLoginResponse.isClaimedToday) {
                 console.log("Claiming daily login");
-                const claimDailyLoginResponse = await Service.claimDailyLogin({ cookie, userQs, client });
+                const claimDailyLoginResponse = await Service.claimDailyLogin({ userQs, client });
                 console.log("Claimed daily login", claimDailyLoginResponse);
             }
 
             // #region lucky wheel
-            const getLuckyWheelResponse = await Service.getLuckyWheel({ cookie, userQs, client });
+            const getLuckyWheelResponse = await Service.getLuckyWheel({ userQs, client });
             let slots = getLuckyWheelResponse.user.slots;
             while (slots > 0) {
                 console.log("Spinning lucky wheel");
-                const spinLuckyWheelResponse = await Service.spinLuckyWheel({ cookie, userQs, client });
+                const spinLuckyWheelResponse = await Service.spinLuckyWheel({ userQs, client });
                 console.log("Spinned lucky wheel", spinLuckyWheelResponse);
                 slots = spinLuckyWheelResponse.user.slots;
                 await new Promise(resolve => setTimeout(resolve, generateRandomInRange(20 * Time.Second, 40 * Time.Second)));
@@ -293,7 +287,7 @@ async function execute(initData: string, proxy?: string) {
             // #region claiming
             const now = new Date().toISOString();
             if (now > nextClaimStart) {
-                const statusResponse = await Service.status({ cookie, userQs, client });
+                const statusResponse = await Service.status({ userQs, client });
                 console.log("status", statusResponse);
 
                 const miningStatus = statusResponse.mining.status;
@@ -301,7 +295,7 @@ async function execute(initData: string, proxy?: string) {
                 switch (miningStatus as MiningStatus) {
                     case "canClaim": {
                         console.log("Claiming mining");
-                        const claimResponse = await Service.claim({ cookie, userQs, client });
+                        const claimResponse = await Service.claim({ userQs, client });
                         console.log("Claimed mining", claimResponse);
 
                         await new Promise(resolve => setTimeout(resolve, generateRandomInRange(3 * Time.Second, 10 * Time.Second)));
@@ -309,7 +303,7 @@ async function execute(initData: string, proxy?: string) {
 
                         if (claimResponse?.mining?.status === "canStart") {
                             console.log("Starting mining");
-                            const startResponse = await Service.start({ cookie, userQs, client });
+                            const startResponse = await Service.start({ userQs, client });
                             const currentMiningEndsAt = startResponse.mining.endsAt;
                             console.log("Started mining", startResponse);
 
@@ -318,7 +312,7 @@ async function execute(initData: string, proxy?: string) {
                         break;
                     }
                     case "canStart": {
-                        const startResponse = await Service.start({ cookie, userQs, client });
+                        const startResponse = await Service.start({ userQs, client });
                         const currentMiningEndsAt = startResponse.mining.endsAt;
                         console.log("Started mining", startResponse);
 
@@ -338,7 +332,7 @@ async function execute(initData: string, proxy?: string) {
             // #region tap
             for (let i = 0; i < 200; i++) {
                 const tapPoints = generateRandomInRange(5, 50);
-                const tapResponse = await Service.tap({ points: tapPoints, cookie, userQs, client });
+                const tapResponse = await Service.tap({ points: tapPoints, userQs, client });
                 console.log(`Tapped ${tapPoints}`, tapResponse);
 
                 if (tapResponse.gameV1.energy <= MIN_TAP_ENERGY) {
@@ -354,12 +348,12 @@ async function execute(initData: string, proxy?: string) {
                 console.log(`Start tapping in ${waitToDoingTaskTime} seconds`);
                 await new Promise(resolve => setTimeout(resolve, waitToDoingTaskTime));
                 // #region tasks
-                const tasksResponse = await Service.getTasks({ cookie, userQs, client });
+                const tasksResponse = await Service.getTasks({ userQs, client });
                 for (const taskGroup of tasksResponse.pending) {
                     console.log(`Starting task group "${taskGroup.title}" - ${taskGroup.id}`);
                     for (const task of taskGroup.tasks.pending) {
                         console.log("Completing task", task.title);
-                        const completeTaskResponse = await Service.completeTask({ taskId: task.id, cookie, userQs, client });
+                        const completeTaskResponse = await Service.completeTask({ taskId: task.id, userQs, client });
                         console.log("Completed task", completeTaskResponse);
 
                         await new Promise(resolve => setTimeout(resolve, generateRandomInRange(10 * Time.Second, 30 * Time.Second)));
@@ -369,7 +363,7 @@ async function execute(initData: string, proxy?: string) {
 
                 for (const task of tasksResponse.tasks.pending) {
                     console.log("Completing task", task.title);
-                    const completeTaskResponse = await Service.completeTask({ taskId: task.id, cookie, userQs, client });
+                    const completeTaskResponse = await Service.completeTask({ taskId: task.id, userQs, client });
                     console.log("Completed task", completeTaskResponse);
                     await new Promise(resolve => setTimeout(resolve, generateRandomInRange(10 * Time.Second, 30 * Time.Second)));
                 }
