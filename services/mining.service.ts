@@ -3,6 +3,7 @@ class MiningService {
         const response = await fetch("https://atletaclicker.online/api/v1/mining/claim", {
             "headers": headers,
             "method": "POST",
+            body: JSON.stringify({}),
             client,
         });
         return response.json();
