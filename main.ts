@@ -36,6 +36,7 @@ class GameTelegramApplication extends TelegramApplication {
         if (userResponse.status !== "existing") {
             throw new Error("User not found");
         }
+        await Timer.sleepRandom(300, 500).promise;
 
         headers.set("Authorization", `Bearer ${userResponse.token}`);
 
@@ -84,11 +85,13 @@ class GameTelegramApplication extends TelegramApplication {
             if (social.completedTimestamp || ignoreSocialIds.includes(social._id)) {
                 continue;
             } else {
+                await Timer.sleepRandom(Time.MINUTE, 2 * Time.MINUTE).promise;
                 await SocialService.claimTask(headers, this.client, social._id);
                 logger.info(`[${this.appName} ${this.extractedInitData?.user.username}]`, "Claimed social", social.name);
             }
         }
 
+        await Timer.sleepRandom(1 * Time.MINUTE, 3 * Time.MINUTE).promise;
         const { data: newUserResponse } = await UserService.fetchUsers(headers, this.client, this.initData);
         const buyableUpgrades = upgrades.data.filter((upgrade) => (
             upgrade.isAbleToBuy
@@ -221,6 +224,10 @@ const users = [
   {
     proxy: undefined,
     initData: "user=%7B%22id%22%3A5993795698%2C%22first_name%22%3A%22Thai%F0%9F%8C%B1SEED%22%2C%22last_name%22%3A%22Le%20%F0%9F%92%8ECR%20%F0%9F%9B%92%22%2C%22username%22%3A%22thailephan%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=5818109951027896480&start_param=be4688f1-f9fa-42f6-9a6e-ffee166c9483&auth_date=1728663487&hash=53ce10a0715ca766dcf1132fd0004f90e5d74b1db8b7cf66f9d80c687f69b052"
+  },
+  {
+     proxy: "proxymart49580:osknCMky@103.241.199.82:49580", 
+     initData: "user=%7B%22id%22%3A8149102788%2C%22first_name%22%3A%22Anderson%20Amanda%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22andersonamandaw2938%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=8953685589684150457&chat_type=supergroup&start_param=be4688f1-f9fa-42f6-9a6e-ffee166c9483&auth_date=1728727767&hash=4257d2131b9f1b91d8bbaa93a0fc4f299020c8b145fd0a57e492a37cd58b36f3",
   }
 ] as UserData[];
 Main.start(users).then().catch(console.error);

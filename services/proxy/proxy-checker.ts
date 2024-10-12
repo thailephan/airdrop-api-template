@@ -16,7 +16,7 @@ class AppProxyChecker {
             })
             while (attempts < maxAttempts) {
                 try {
-                    const response = await fetch('https://api.ipify.org?format=json', {
+                    const response = await fetch('https://api64.ipify.org?format=json', {
                         method: "GET",
                         client,
                     });

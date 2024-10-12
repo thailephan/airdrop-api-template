@@ -5,8 +5,6 @@ class UserService {
             "headers": headers,
             "body": body,
             "method": "POST",
-            "mode": "cors",
-            "credentials": "include",
             client,
         });
         return response.json();
