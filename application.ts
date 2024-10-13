@@ -93,7 +93,7 @@ abstract class TelegramApplication {
     }
 
     onExecutionFailed(error: any) {
-        logger.error(error);
+        logger.error(`[${this.appName} ${this.extractedInitData?.user.username}]`, error);
         this.incrementRetry();
     }
 
