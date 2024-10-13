@@ -337,6 +337,8 @@ class GameTelegramApplication extends TelegramApplication {
                             logger.info(`[${this.appName} ${this.extractedInitData?.user.username}]`, `Mission ${mission.name} already completed`);
                             continue;
                         }
+
+                        await Timer.sleep(30 * Time.SECOND);
                     }
                 }
             }
