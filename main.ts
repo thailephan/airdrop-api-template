@@ -44,13 +44,16 @@ class GameTelegramApplication extends TelegramApplication {
         do {
           try {
             userResponse = await UserService.fetchUsers(headers, this.client, this.initData);
+            logger.info(`[${this.appName} ${this.extractedInitData?.user.username}]`, "Fetch user success");
           } catch (e: any) {
             logger.error(`[${this.appName} ${this.extractedInitData?.user.username}]`, e.message, count);
-            count++;
+          }
+          if (count++ >= 5) {
+            break;
           }
           await Timer.sleepRandom(5 * Time.SECOND, 10 * Time.SECOND).promise;
-        } while(userResponse === undefined || count < 5);
-        if (count >= 5) {
+        } while(userResponse === undefined);
+        if (count >= 5 || userResponse === undefined) {
           return;
         }
         headers.set("Authorization", `Bearer ${userResponse.token}`);
