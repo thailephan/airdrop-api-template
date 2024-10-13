@@ -15,7 +15,7 @@ class Timer {
         });
     }
     static sleepRandom(minMs: number, maxMs: number) {
-        const randomTime = Helpers.generateRandomNumberInRange(minMs, maxMs, { fixed: 2 });
+        const randomTime = Helpers.generateRandomNumberInRange(minMs, maxMs, { fixed: 0 });
         return { timeMs: randomTime, time: randomTime / 1000, promise: Timer.sleep(randomTime) };
     }
 }
