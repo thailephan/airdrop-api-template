@@ -22,7 +22,9 @@ abstract class TelegramApplication {
 
     constructor(initData: string, proxy?: string) {
         this.initData = initData;
-        this.extractedInitData = InitDataExtractor.extract(initData);
+        if (initData) {
+            this.extractedInitData = InitDataExtractor.extract(initData);
+        }
 
         this.setProxy(proxy);
     }
@@ -77,6 +79,9 @@ abstract class TelegramApplication {
     }
     protected isMaxRetryReached() {
         return this.retry >= this.maxRetry;
+    }
+    protected log(message: string, type: "info" | "error" = "info") {
+        logger[type](`[${this.appName} ${this.extractedInitData?.user.username}]`, message);
     }
 
     
