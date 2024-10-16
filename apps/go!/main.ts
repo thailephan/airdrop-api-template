@@ -151,6 +151,8 @@ class GameTelegramApplication extends TelegramApplication {
         this.setExecutionInterval(this.EXECUTION_INTERVAL);
 
         const tonWalletResponse = await this.userTonWallet();
+        this.log(JSON.stringify(tonWalletResponse.boost_level), "info");
+        const currentLevel = tonWalletResponse.boost_level.currentLevel;
         const userRewardsResponse = await this.userUserReward();
 
         const streakDetails = await this.userGetStreakDetails();
@@ -188,7 +190,7 @@ class GameTelegramApplication extends TelegramApplication {
               currentEnergy -= randomTap;
 
               tapList.push({
-                  tap_amount: randomTap,
+                  tap_amount: randomTap * currentLevel * 0.5 * currentEnergy,
                   tap_remaining: currentEnergy,
               });
           }
