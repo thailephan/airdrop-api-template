@@ -53,6 +53,7 @@ class GameTelegramApplication extends TelegramApplication {
         this.appName = "gumart";
         this.headers = new GameFetchHeaders();
         this.setExecutionInterval(2 * Time.HOUR, 2 * Time.HOUR + 10 * Time.MINUTE);
+        this.setMaxRetry(10);
     }
 
     async login(): Promise<LoginResponse> {
@@ -171,7 +172,7 @@ class GameTelegramApplication extends TelegramApplication {
             }
         }
 
-        this.setExecutionInterval(30 * Time.MINUTE, 1 * Time.HOUR + 10 * Time.MINUTE);
+        this.setExecutionInterval(60 * Time.MINUTE, 1 * Time.HOUR + 50 * Time.MINUTE);
     }
 }
 
