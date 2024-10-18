@@ -197,87 +197,71 @@ class Main {
 const users = [
   {
     proxy: "proxymart49580:osknCMky@103.241.199.82:49580",
-    initData: "user=%7B%22id%22%3A8149102788%2C%22first_name%22%3A%22Anderson%20Amanda%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22andersonamandaw2938%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-2171138668366454794&start_param=5993795698&auth_date=1728832469&hash=af81b9a1132990ed1184bc7d392a9c7a13b54c6f2b013e04ab20d7fb9395bc0a"
+    initData: "user=%7B%22id%22%3A8149102788%2C%22first_name%22%3A%22Anderson%20Amanda%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22andersonamandaw2938%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-2171138668366454794&start_param=5993795698&auth_date=1729265706&hash=0d03e1d6057f5474709597e5ab11da68bd5c1ec56945184c673dffe336c53b3f"
   },
   {
     proxy: "proxymart29181:tOgaGRME@157.66.12.181:29181",
-    initData: "user=%7B%22id%22%3A6091532790%2C%22first_name%22%3A%22may%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%20%F0%9F%8C%B1SEED%20%F0%9F%90%B8%F0%9F%92%8ECR%22%2C%22username%22%3A%22xzvtglhp%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-3404785618990470863&start_param=5993795698&auth_date=1728832479&hash=74674580f91b6ebf923b5dd81066be80c8f7119a86f436752516a9f1cd29c071"
+    initData: "user=%7B%22id%22%3A6091532790%2C%22first_name%22%3A%22may%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%20%F0%9F%8C%B1SEED%20%F0%9F%90%B8%F0%9F%92%8ECR%22%2C%22username%22%3A%22xzvtglhp%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-3404785618990470863&start_param=5993795698&auth_date=1729265712&hash=d702a8c8c38cd787baa211739766340600bd5ee523a9a02539802a7d2e941606"
   },
   {
     proxy: "proxymart29519:BKKTgDcE@103.65.136.46:29519",
-    initData: "user=%7B%22id%22%3A6083367699%2C%22first_name%22%3A%22may%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%20%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22tixhsqau%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-1346559142483713923&start_param=5993795698&auth_date=1728832471&hash=a7c546f6c63b2091a034efe47102b18a278ebe7b65524d22777f5d301a447b52"
+    initData: "user=%7B%22id%22%3A6083367699%2C%22first_name%22%3A%22may%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%20%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22tixhsqau%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-1346559142483713923&start_param=5993795698&auth_date=1729265712&hash=5cd263e9990ed6ec75f4541229cfcef6dc5b8c6e4b174169ec6068ddf5b51cb1"
   },
   {
     proxy: "proxymart29519:BKKTgDcE@103.65.136.46:29519",
-    initData: "user=%7B%22id%22%3A7172846926%2C%22first_name%22%3A%22may%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%20%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22myntafxs%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=6429454845711678994&start_param=5993795698&auth_date=1728832801&hash=01a6fbbaedebbb2810c81ffd733280a2aab45f110fe828408e949fd21255d67c"
-  },
-  {
-    proxy: "proxymart29365:kptWtmoD@36.50.132.123:29365",
-    initData: "user=%7B%22id%22%3A7487128929%2C%22first_name%22%3A%22Liliana%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22Cacheta%F0%9F%8C%B1SEED%F0%9F%92%8ECR%22%2C%22username%22%3A%22liliana1ld%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-750200261062932036&start_param=5993795698&auth_date=1728832483&hash=3f7a8a8b3a0cdeae3c78174759eef21af32f10d5630525e1264f93e040c6aae4"
-  },
-  {
-    proxy: "proxymart29365:kptWtmoD@36.50.132.123:29365",
-    initData: "user=%7B%22id%22%3A6594749785%2C%22first_name%22%3A%22Carlena%20Dool%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22carlena2l%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-491289100348415084&start_param=5993795698&auth_date=1728832487&hash=ee5324f55d4ccac7afcae6e84b6d24ac4be0c924b0e58053f20e90e0884d122d"
+    initData: "user=%7B%22id%22%3A7172846926%2C%22first_name%22%3A%22may%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%20%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22myntafxs%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=6429454845711678994&start_param=5993795698&auth_date=1729265713&hash=5b77e73f0e88445945fe1e9c6a76ff366caf97cb9c81cb6bf2794e77ae7d0a1f"
   },
   {
     proxy: "proxymart29181:tOgaGRME@157.66.12.181:29181",
-    initData: "user=%7B%22id%22%3A7274192019%2C%22first_name%22%3A%22Diane%22%2C%22last_name%22%3A%22Bradley%22%2C%22username%22%3A%22DianeBradley2010%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=4925329964673632414&start_param=5993795698&auth_date=1728832487&hash=c1d18b471740d91f8c733d870f11f8338d068c73a2dfde1998979527df3ee4b6"
+    initData: "user=%7B%22id%22%3A7274192019%2C%22first_name%22%3A%22Diane%22%2C%22last_name%22%3A%22Bradley%22%2C%22username%22%3A%22DianeBradley2010%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=4925329964673632414&start_param=5993795698&auth_date=1729265718&hash=08971514fe2a428c0ec628f67c9825f06818aab5f3cb4c81f5dfed86dc8e20d9"
   },
   {
     proxy: "proxymart29209:yjVfRpvG@103.236.175.111:29209",
-    initData: "user=%7B%22id%22%3A7162231983%2C%22first_name%22%3A%22C%E1%BA%A9m%20hi%E1%BB%81n%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22Ph%E1%BA%A1m%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22cri70281vzj%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-7368950157918251304&start_param=5993795698&auth_date=1728832508&hash=078d7be78cd0eb4cbca363820e63c0946de2a35e3f435fec2a0f50528029c441"
+    initData: "user=%7B%22id%22%3A7162231983%2C%22first_name%22%3A%22C%E1%BA%A9m%20hi%E1%BB%81n%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22Ph%E1%BA%A1m%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22cri70281vzj%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-7368950157918251304&start_param=5993795698&auth_date=1729265803&hash=e3b999aad44000dbe03beaa0fd24811cf3bc2fb4499662cbadfda6be2b370abd"
   },
   {
     proxy: "proxymart29209:yjVfRpvG@103.236.175.111:29209",
-    initData: "user=%7B%22id%22%3A7206351041%2C%22first_name%22%3A%22Summerslaverna%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22Dorriccug%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22krzfO39454%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=1486145791654986892&start_param=5993795698&auth_date=1728832508&hash=04cae8472cecb3d802f410be045a76e1d447790778605d15b850df578a3767fc"
+    initData: "user=%7B%22id%22%3A7206351041%2C%22first_name%22%3A%22Summerslaverna%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22Dorriccug%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22krzfO39454%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=1486145791654986892&start_param=5993795698&auth_date=1729265802&hash=60f9f06e649b18e8a66aa2b4452abb466a3ff08effb085b90aa94b8437bbc69a"
   },
   {
     proxy: "proxymart29011:PWWnuvJU@36.50.133.11:29011",
-    initData: "user=%7B%22id%22%3A7350116575%2C%22first_name%22%3A%22Reath%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22sDcDt94764%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-1514863516280952326&start_param=5993795698&auth_date=1728832484&hash=a9966e69300bfd8b2cb5fa0452a061c412b778039a4d801a383428fe95718699" 
+    initData: "user=%7B%22id%22%3A7350116575%2C%22first_name%22%3A%22Reath%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22sDcDt94764%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-1514863516280952326&start_param=5993795698&auth_date=1729265807&hash=892d9b2252fcaf5e722e0c072c00b52e786f0fc9ce1b55662c38a605936024f8" 
   },
   {
     proxy: undefined,
-    initData: "user=%7B%22id%22%3A7038003725%2C%22first_name%22%3A%22Jarvis%20Hanel%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22javis1l%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=2266696486192387960&start_param=5993795698&auth_date=1728832568&hash=36dbd1a5db481b2ca49f63e77a04ed2e3e77facba1b1d3ef86c88b17a7be229b"
+    initData: "user=%7B%22id%22%3A7038003725%2C%22first_name%22%3A%22Jarvis%20Hanel%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%A6%86%F0%9F%90%B0%22%2C%22last_name%22%3A%22%F0%9F%8C%B1SEED%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22javis1l%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=2266696486192387960&start_param=5993795698&auth_date=1729265804&hash=fc2417046492d2f4577f7844d46e44e799b18f7794d9a995bf0843ca4a233f07"
   },
   {
     proxy: "proxymart29011:PWWnuvJU@36.50.133.11:29011",
-    initData: "user=%7B%22id%22%3A7396996476%2C%22first_name%22%3A%22mohamadreza.akbari%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%90%B0%F0%9F%A6%86%22%2C%22last_name%22%3A%22Ooo%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22cabibara1l%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-8089640310229241413&start_param=5993795698&auth_date=1728832604&hash=f59061e57ea86359a8dc8f971795a19b71b255776b2f8e4131fbe8848133f88c" 
+    initData: "user=%7B%22id%22%3A7396996476%2C%22first_name%22%3A%22mohamadreza.akbari%20%F0%9F%90%88%E2%80%8D%E2%AC%9BDUCKS%20%F0%9F%90%B0%F0%9F%A6%86%22%2C%22last_name%22%3A%22Ooo%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22cabibara1l%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-8089640310229241413&start_param=5993795698&auth_date=1729265705&hash=717989b7d5f4c8b7867bcb9e59554e489c85651e711ca3b062de7dc154128d31" 
   },
   {
     proxy: undefined,
-    initData: "user=%7B%22id%22%3A5993795698%2C%22first_name%22%3A%22Thai%F0%9F%8C%B1SEED%22%2C%22last_name%22%3A%22Le%20%F0%9F%92%8ECR%20%F0%9F%9B%92%22%2C%22username%22%3A%22thailephan%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=1179702508836320833&start_param=5993795698&auth_date=1728832605&hash=7efedc79fbd91d95db087bf397cc6e4f95918784d0819ed98b2181e8dbc44f8a"
+    initData: "user=%7B%22id%22%3A5993795698%2C%22first_name%22%3A%22Thai%F0%9F%8C%B1SEED%22%2C%22last_name%22%3A%22Le%20%F0%9F%92%8ECR%20%F0%9F%9B%92%22%2C%22username%22%3A%22thailephan%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=1179702508836320833&start_param=5993795698&auth_date=1729265806&hash=0d1808da3d47bafb09a77859f79f899f6636c429190845bea636c88b09c8bb46"
   },
   {
     proxy: "proxymart29102:WzUiihpd@36.50.236.102:29102",
-    initData: "user=%7B%22id%22%3A7614128738%2C%22first_name%22%3A%22Marguerite%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22Tyrome%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22margueritetyrome%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-5997017450704012831&start_param=5993795698&auth_date=1728832615&hash=931d21bc46527f4329395a6574040e4fcad7a50eb0d94afe8577636029772ed6"
+    initData: "user=%7B%22id%22%3A7614128738%2C%22first_name%22%3A%22Marguerite%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22Tyrome%20%F0%9F%92%8ECR%22%2C%22username%22%3A%22margueritetyrome%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-5997017450704012831&start_param=5993795698&auth_date=1729265810&hash=e40325d0d591f5069c3ab62286ce87cff9a03ec3adfdf248b65434c48c368925"
   },
   {
     proxy: "proxymart29380:UpFsrDHL@36.50.133.72:29380",
-    initData: "user=%7B%22id%22%3A7496050969%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%F0%9F%92%8ECR%22%2C%22username%22%3A%22koscwivu%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=8934967708481290346&start_param=5993795698&auth_date=1728832611&hash=e628e82c4096c9d5592f141687db7a15976ce846118054f0f2ee13d657deab7d"
-  },
-  {
-    proxy: "proxymart29380:UpFsrDHL@36.50.133.72:29380",
-    initData: "user=%7B%22id%22%3A7055633313%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%F0%9F%92%8ECR%22%2C%22username%22%3A%22mxznvqta%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=1287174829965320301&start_param=5993795698&auth_date=1728832617&hash=1d461ffc59b3aacd2d1238daaf0f00eba59ebf5d0742397f22c042f0a04d84d9"
+    initData: "user=%7B%22id%22%3A7055633313%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%F0%9F%92%8ECR%22%2C%22username%22%3A%22mxznvqta%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=1287174829965320301&start_param=5993795698&auth_date=1729265885&hash=eb63c452ad2099216a494c75fe26c368e2d49f47f31f5dc14404816ee62693a1"
   },
   {
     proxy: "proxymart29048:IpcoDRzM@199.48.244.48:29048",
-    initData: "user=%7B%22id%22%3A7295672761%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%F0%9F%92%8ECR%22%2C%22username%22%3A%22bojlumdf%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-4140651204720600646&start_param=5993795698&auth_date=1728832623&hash=9b9f6c70e65533f52b514ac467c9bb8ba28098c7eb346a2b7b34659f2e9a93c9"
+    initData: "user=%7B%22id%22%3A7295672761%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%F0%9F%92%8ECR%22%2C%22username%22%3A%22bojlumdf%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-4140651204720600646&start_param=5993795698&auth_date=1729265888&hash=12014136810ea39e23bec10e857df8d3071fbac9d00df74eac4d203f7d2fd145"
   },
   {
     proxy: "proxymart29048:IpcoDRzM@199.48.244.48:29048",
-    initData: "user=%7B%22id%22%3A7052605861%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%F0%9F%92%8ECR%22%2C%22username%22%3A%22jpnbmszd%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=2469098259305413951&start_param=5993795698&auth_date=1728832633&hash=04dbca06ec467b131ca1f91c23af3ff9e974ebe3a518bfd05e9e8b9309df2a69"
+    initData: "user=%7B%22id%22%3A7052605861%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%F0%9F%92%8ECR%22%2C%22username%22%3A%22jpnbmszd%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=2469098259305413951&start_param=5993795698&auth_date=1729265895&hash=c3a774a5e54ad5fb8781b4eed87f00c1bb804bb9802abe40becbf85390dd8fb7"
   },
   {
     proxy: "proxymart29262:PbvFBKuR@36.50.133.136:29262",
-    initData: "user=%7B%22id%22%3A7373766374%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%F0%9F%92%8ECR%22%2C%22username%22%3A%22fykdirtz%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=5366988681959951810&start_param=5993795698&auth_date=1728832640&hash=bde68b8d557bd187ed5bdf6dcc1115715c9c5f54ea92f6c619153b858bfcefb6"
-  },
-  {
-    proxy: "proxymart29262:PbvFBKuR@36.50.133.136:29262",
-    initData: "user=%7B%22id%22%3A7138410111%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%220997%F0%9F%92%8ECR%22%2C%22username%22%3A%22qrtlkpja%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-4774232435406133379&start_param=5993795698&auth_date=1728832636&hash=e373bf813ac93fb81741121d9ee10b1ada3f6cddf1aaba61c682275986686319"
+    initData: "user=%7B%22id%22%3A7138410111%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%220997%F0%9F%92%8ECR%22%2C%22username%22%3A%22qrtlkpja%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-4774232435406133379&start_param=5993795698&auth_date=1729267370&hash=af71a3758446e88a2c4b96496df76ebd6e1ed078c796c6fb451f9352b21f5619"
   },
   {
     proxy: "proxymart29102:WzUiihpd@36.50.236.102:29102",
-    initData: "user=%7B%22id%22%3A7094522456%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%20%F0%9F%8C%B1SEED%F0%9F%92%8ECR%22%2C%22username%22%3A%22acsbpnxw%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=3289525953265492444&start_param=5993795698&auth_date=1728832657&hash=14712983862dd15ff4d68a0ac69a39c8d19876d230aec98bdd5b973a8941a4e1"
+    initData: "user=%7B%22id%22%3A7094522456%2C%22first_name%22%3A%22may%20SEED%20%F0%9F%90%88%E2%80%8D%E2%AC%9B%22%2C%22last_name%22%3A%22lq%20%F0%9F%8C%B1SEED%F0%9F%92%8ECR%22%2C%22username%22%3A%22acsbpnxw%22%2C%22language_code%22%3A%22vi%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=3289525953265492444&start_param=5993795698&auth_date=1729265895&hash=21b19f99d202119843dd3f845ce0fdca284c151d458be8bd38a7687a03cd0e3c"
   }
 ] as UserData[];    
 Main.start(users).then().catch(console.error);
