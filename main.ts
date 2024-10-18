@@ -138,6 +138,15 @@ interface SpinLuckyWheelResponse {
     }
 }
 
+interface SlotMachineResponse {
+    user: {
+        "freeSpinsAt": string,
+        "slots": number,
+        "maxSlots": string,
+        "adv": any
+    }
+}
+
 const Service = {
     status: async ({ client, ...headers}: Request): Promise<Response> => {
         const response = await fetch("https://rich-teddy.slex.io/api/rich-teddy-bot/status", {
@@ -230,6 +239,23 @@ const Service = {
         })
         return response.json();
     },
+
+    getSlotMachine: async({ client, ...headers}: Request): Promise<SlotMachineResponse> => {
+        const response = await fetch("https://rich-teddy.slex.io/api/rich-teddy-bot/slot-machine", {
+            method: "GET",
+            headers: getHeaders(headers),
+            client,
+        })
+        return response.json();
+    },
+    spinSlotMachine: async({ client, ...headers}: Request): Promise<SlotMachineResponse & { winner: { type: string, amount: number }}> => {
+        const response = await fetch("https://rich-teddy.slex.io/api/rich-teddy-bot/slot-machine", {
+            method: "POST",
+            headers: getHeaders(headers),
+            client,
+        })
+        return response.json();
+    }
 }
 
 const generateRandomInRange = (min: number = 0, max: number = 1) => {
@@ -280,6 +306,18 @@ async function execute(initData: string, proxy?: string) {
                 const spinLuckyWheelResponse = await Service.spinLuckyWheel({ userQs, client });
                 console.log("Spinned lucky wheel", spinLuckyWheelResponse);
                 slots = spinLuckyWheelResponse.user.slots;
+                await new Promise(resolve => setTimeout(resolve, generateRandomInRange(20 * Time.Second, 40 * Time.Second)));
+            }
+            // #endregion
+
+            // #region lucky wheel
+            const getSlotResponse = await Service.getSlotMachine({ userQs, client });
+            let slotMachineSlots = getSlotResponse.user.slots;
+            while (slotMachineSlots > 0) {
+                console.log("Spinning slot machine");
+                const spinLuckyWheelResponse = await Service.spinSlotMachine({ userQs, client });
+                console.log("Spinned slot machine", spinLuckyWheelResponse);
+                slotMachineSlots = spinLuckyWheelResponse.user.slots;
                 await new Promise(resolve => setTimeout(resolve, generateRandomInRange(20 * Time.Second, 40 * Time.Second)));
             }
             // #endregion
@@ -349,7 +387,11 @@ async function execute(initData: string, proxy?: string) {
                 await new Promise(resolve => setTimeout(resolve, waitToDoingTaskTime));
                 // #region tasks
                 const tasksResponse = await Service.getTasks({ userQs, client });
+                const ignoreTaskGroups = [48];
                 for (const taskGroup of tasksResponse.pending) {
+                    if (ignoreTaskGroups.includes(parseInt(taskGroup.id))) {
+                        continue;
+                    }
                     console.log(`Starting task group "${taskGroup.title}" - ${taskGroup.id}`);
                     for (const task of taskGroup.tasks.pending) {
                         console.log("Completing task", task.title);
