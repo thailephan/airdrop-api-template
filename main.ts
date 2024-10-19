@@ -168,6 +168,7 @@ class GameTelegramApplication extends TelegramApplication {
         super(initData, proxy);
         this.appName = "depin-alliance";
         this.headers = new GameFetchHeaders();
+        this.setMaxRetry(10);
     }
 
     async userAuth(): Promise<AuthResponse> {
