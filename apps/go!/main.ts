@@ -190,7 +190,7 @@ class GameTelegramApplication extends TelegramApplication {
               currentEnergy -= randomTap;
 
               tapList.push({
-                  tap_amount: randomTap * currentLevel * 0.5 * currentEnergy,
+                  tap_amount: randomTap * currentLevel * 10,
                   tap_remaining: currentEnergy,
               });
           }
