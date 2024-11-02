@@ -3,7 +3,12 @@ import { logger } from "./common/logger.ts";
 import { Time, Timer } from "./common/timer.ts";
 import { AppProxy } from "./services/proxy/proxy.ts";
 
+export interface TelegramApplicationConfigs {
+
+}
 abstract class TelegramApplication {
+    protected configs: TelegramApplicationConfigs;
+    protected allowStartApp: boolean = true;
     private MIN_EXECUTION_INTERVAL: number = Time.HOUR * 4;    
     private MAX_EXECUTION_INTERVAL: number = Time.HOUR * 6;
     private MAX_RETRY: number = 5;
@@ -20,13 +25,19 @@ abstract class TelegramApplication {
     protected maxRetry: number = this.MAX_RETRY;
     protected retry: number = 0;
 
-    constructor(initData: string, proxy?: string) {
+    constructor(initData: string, proxy?: string, configs?: TelegramApplicationConfigs) {
+        if (configs) {
+            this.configs = configs;
+        }
         this.initData = initData;
         if (initData) {
             this.extractedInitData = InitDataExtractor.extract(initData);
         }
 
         this.setProxy(proxy);
+    }
+    protected setConfigs(configs: TelegramApplicationConfigs) {
+        this.configs = configs;
     }
 
     setInitData(initData: string) {
@@ -116,6 +127,8 @@ abstract class TelegramApplication {
 
     async execute() {
         do {
+            if (!this.allowStartApp) break;
+
             try {
                 const { shouldStop } = this.onExecutionStart();
                 if (shouldStop) {
