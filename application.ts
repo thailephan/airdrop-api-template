@@ -4,10 +4,12 @@ import { Time, Timer } from "./common/timer.ts";
 import { AppProxy } from "./services/proxy/proxy.ts";
 
 export interface TelegramApplicationConfigs {
-
+    maxRuns?: number;
 }
 abstract class TelegramApplication {
-    protected configs: TelegramApplicationConfigs;
+    protected configs: TelegramApplicationConfigs = {
+        maxRuns: 0,
+    };
     protected allowStartApp: boolean = true;
     private MIN_EXECUTION_INTERVAL: number = Time.HOUR * 4;    
     private MAX_EXECUTION_INTERVAL: number = Time.HOUR * 6;
@@ -114,7 +116,11 @@ abstract class TelegramApplication {
     }
 
     async onExecutionEnd() {
-        await this.waitNextExecution();
+        if (this.configs.maxRuns === 1) {
+            // do nothing
+        } else {
+            await this.waitNextExecution();
+        }
     }
 
     waitNextExecution() {
@@ -126,25 +132,26 @@ abstract class TelegramApplication {
     abstract onRunExecution(): Promise<void>;
 
     async execute() {
-        do {
-            if (!this.allowStartApp) break;
+        let counter = 0;
+        if (this.allowStartApp) {
+            do {
+                try {
+                    const { shouldStop } = this.onExecutionStart();
+                    if (shouldStop) {
+                        break;
+                    }
 
-            try {
-                const { shouldStop } = this.onExecutionStart();
-                if (shouldStop) {
-                    break;
+                    await this.onRunExecution();
+
+                    this.onExecutionSuccess();
+                } catch (error) {
+                    this.onExecutionFailed(error);
+                } finally {
+                    await this.onExecutionEnd();
                 }
-
-                await this.onRunExecution();
-
-                this.onExecutionSuccess();
-            } catch (error) {
-                this.onExecutionFailed(error);
-            } finally {
-                await this.onExecutionEnd();
-            }
-        } while(true);
-
+                counter++;
+            } while(this.configs.maxRuns === 0 || counter < (this.configs.maxRuns ?? 1));
+        }
         return Promise.resolve();
     };
 }
