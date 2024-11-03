@@ -96,9 +96,13 @@ class GameTelegramApplication extends TelegramApplication {
       const data = await response.json();
       return data.data;
     }
+    isTired(limitAmount: number, addDayPoints: number): boolean {
+        return limitAmount === null || limitAmount <= 0 ? !1 : addDayPoints >= limitAmount
+    }
 
     override async onRunExecution(): Promise<void> {
       const MIN_STAMINA = 100;
+      this.setExecutionInterval(this.EXECUTION_INTERVAL + 1 * Time.MINUTE, this.EXECUTION_INTERVAL + 2 * Time.MINUTE);
 
       this.headers.setKey("tma-authorization", this.user.initData );
       const loginResponse = await this.login({ headers: this.headers.get() });
@@ -111,7 +115,18 @@ class GameTelegramApplication extends TelegramApplication {
       const _ = await this.getUserInfo({ headers: this.headers.get() });
 
       const tgInfoResponse = await this.getTelegramInfo({ headers: this.headers.get() });
-      const { deplete, points, stamina, levelCap, userLevel } = tgInfoResponse;
+      const { deplete, points, stamina, levelCap, userLevel, limitAmount, addDayPoints } = tgInfoResponse;
+      const isTired = this.isTired(limitAmount, addDayPoints);
+      if (isTired) {
+          this.log(`Miner is tired`, "info");
+          const now = new Date();
+          const tomorrow = new Date(now);
+          tomorrow.setDate(now.getDate() + 1);
+          tomorrow.setHours(Helpers.generateRandomNumberInRange(1, 12), 0, 0, 0);
+          const sleepTime = tomorrow.getTime() - now.getTime();
+          this.setExecutionInterval(sleepTime, sleepTime + 1 * Time.MINUTE);
+          return;
+      }
       let currentStamina = stamina;
       let currentPoints = points;
       while(true) {
@@ -129,7 +144,19 @@ class GameTelegramApplication extends TelegramApplication {
         const tapNumber = Math.min(currentStamina, depleteTap);
         const depletePower = currentStamina - tapNumber;
 
-        const { points: latestPoints } = await this.updateTelegramInfo({ headers: this.headers.get(), depletePower, points: currentPoints + tapNumber });
+        const { points: latestPoints, limitAmount, addDayPoints } = await this.updateTelegramInfo({ headers: this.headers.get(), depletePower, points: currentPoints + tapNumber });
+        const isTired = this.isTired(limitAmount, addDayPoints);
+        if (isTired) {
+          this.log(`Miner is tired`, "info");
+          const now = new Date();
+          const tomorrow = new Date(now);
+          tomorrow.setDate(now.getDate() + 1);
+          tomorrow.setHours(Helpers.generateRandomNumberInRange(1, 12), 0, 0, 0);
+          const sleepTime = tomorrow.getTime() - now.getTime();
+          this.setExecutionInterval(sleepTime, sleepTime + 1 * Time.MINUTE);
+          break
+        }
+
         if (currentPoints !== latestPoints) {
           this.log(`Tap: ${tapNumber}, Stamina updated: ${currentPoints} -> ${latestPoints}`, "info");
           currentStamina -= tapNumber;
