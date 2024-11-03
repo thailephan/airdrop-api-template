@@ -343,23 +343,18 @@ class Main {
         //         return application.execute();
         //     }
         // }));
-        // const concurrentWorkers = 5;
-        const totalUsers = users.length;
-        const randomUserIndexes = Array.from({ length: totalUsers }, (_, index) => index).sort(() => Math.random() - 0.5);
-        for(let i = 0; i < totalUsers; i += 1) {
-            const user = users[randomUserIndexes[i]];
-            // const promises = Promise.all(users.slice(i, Math.max(i + concurrentWorkers, totalUsers)).map((user) => {
-            //     // const proxyIP = await appProxyChecker.check(user.proxy);
-            //     // // logger.info(user.userId, proxyIP); 
-            //     // if (proxyIP) {
-            //     // }
-            //     const application = new GameTelegramApplication(user);
-            //     return application.execute();
-            // }));
+        while (true) {
+            const totalUsers = users.length;
+            const randomUserIndexes = Array.from({ length: totalUsers }, (_, index) => index).sort(() => Math.random() - 0.5);
+            for(let i = 0; i < totalUsers; i += 1) {
+                const user = users[randomUserIndexes[i]];
+                const application = new GameTelegramApplication(user, { maxRuns: 1 });
+                await application.execute();
+            }
 
-            // await promises;
-            const application = new GameTelegramApplication(user, { maxRuns: 1 });
-            await application.execute();
+            const { promise, time } = await Timer.sleepRandom(1 * Time.HOUR, 2 * Time.HOUR);
+            console.log(`Wait ${time} second(s) to next execution`);
+            await promise;
         }
     }
 }
