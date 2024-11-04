@@ -115,7 +115,7 @@ class GameTelegramApplication extends TelegramApplication {
         if (shotResponse.ok) {
             console.log(`Shot success`);
         }
-        this.setExecutionInterval(1 * Time.MINUTE, 2 * Time.MINUTE);
+        this.setExecutionInterval(30 * Time.SECOND, 2 * Time.MINUTE);
     }
 }
 
