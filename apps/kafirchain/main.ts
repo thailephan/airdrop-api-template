@@ -114,9 +114,10 @@ const pointWithWeights = [{
                 value: 15,
                 weight: 3,
 }]
-function start() {
+async function start() {
+    const promises = [];
     for(let i = 0; i < walletAddresses.length; i++) {
-        (async () => {
+        promises.push((async () => {
             const walletAddress = walletAddresses[i];
             const { promise, timeMs } = Timer.sleepRandom(0, 1 * Time.MINUTE);
             console.log(`${walletAddress}: Start first sleeping for ${timeMs / Time.SECOND} seconds`);
@@ -142,10 +143,13 @@ function start() {
                     }
                 } catch(e) {
                     console.log(`${walletAddress}: Failed to send points`, e);
+                    break;
                 }
             }
-        })();
+            return Promise.resolve();
+        })());
     }
+    await Promise.all(promises);
 }
 start();
 function weightedRandomPoints(data: {value: number, weight: number}[]) {
