@@ -19,7 +19,7 @@ const sendTokens = async (recipient: string, point: number) => {
         const balanceInTokens = parseFloat(web3.utils.fromWei(balance as any, 'ether'));
 
         if (balanceInTokens < point) {
-            throw new Error('Insufficient balance');
+            throw new Error(`Faucet insufficient balance`);
         }
 
         const gasPrice = await web3.eth.getGasPrice();
@@ -35,15 +35,15 @@ const sendTokens = async (recipient: string, point: number) => {
 
         const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
         const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-        console.log('Transaction receipt:', receipt);
+        console.log(`${recipient}: Transaction receipt:`, receipt);
         
         const transactionHashUrl = `https://blockscan-evm.kafirchain.site/tx/${receipt.transactionHash}`;
         return transactionHashUrl;
     } catch (error: any) {
         if (error.code === -32000) {
-            throw new Error('Insufficient funds for gas * price + value');
+            throw new Error(`${recipient}: Insufficient funds for gas * price + value`);
         } else {
-            throw new Error('Failed to send tokens. Please try again later.');
+            throw new Error(`${recipient}: Failed to send tokens. Please try again later.`);
         }
     }
 };
@@ -73,13 +73,11 @@ const getGitcoinScore = async (address: string) => {
     }
 }
 const walletAddresses = [
-    // rasperry pi
-    // "0x7a6E3bE8FDa47039473D2aA39bFC89AA54dDCcfa", // OKX (ETH)
-    // "0x8bec3ce1dc85a0759a4e40ebe859d48f30a93ca9", // account 1 (ETH)
-    // "0xea87e804debaf4e5016b02068ca3f6e3abe4a080", // account 2 (ETH)
-    // "0xf293b321f6b33bb0a7f9cde5f093588b10bbe33d", // account 3 (ETH)
-
     // hemi
+    "0x7a6E3bE8FDa47039473D2aA39bFC89AA54dDCcfa", // OKX (ETH)
+    "0x8bec3ce1dc85a0759a4e40ebe859d48f30a93ca9", // account 1 (ETH)
+    "0xea87e804debaf4e5016b02068ca3f6e3abe4a080", // account 2 (ETH)
+    "0xf293b321f6b33bb0a7f9cde5f093588b10bbe33d", // account 3 (ETH)
     "0xdadf939489fb5204d1f3c4b9fc11b42e3db02c5c", // account 4 (ETH)
     "0xd77247904bded68940a463c28317ee59ef826dbd", // account 5 (ETH)
     "0x07ff33a581e68f57961edd39c420e4fcd4c526bf", // account 6 (ETH)
@@ -87,13 +85,36 @@ const walletAddresses = [
     "0xb7b3c7ecc63897ed9d05227eb2c6924ffd18c38c", // account 8 (ETH)
     "0x2ed7c0bb40ee646dd3fdf75b39217c432161df62", // account 9 (ETH)
     "0xc1233b18c03686f5dc9a772bce0eda5b6677c6fe", // account 10 (ETH)
+    "0xd7743f140d3cb617b5e207248bdd7924c969330e", // account 11 (ETH)
+    "0xa402c15e824da8f28249295feafc10d4530f59c3", // account 12 (ETH)
+    "0xb17c476aec85ccecbb522b47549e4ffa53b038eb", // account 13 (ETH)
+    "0xe88955cb472f4ba743343e051ee502bc891edf33", // account 14 (ETH)
+    "0x5f7fd517588df57b05e4b74e59ddcb90842829a1", // account 15 (ETH)
+
+    // rasperry pi
+    // "0x4a5334040df90b203d78edeaae0320d4f1329197", // account 16 (ETH)
+    // "0xe57b67d85a3fc9622dad3ee86966545bc5e2907c", // account 17 (ETH)
+    // "0x60261383f9a69146bdf2443be35d4911191ced05", // account 18 (ETH)
+    // "0x31d91c8c57b410299c712f79452bff79eaaf6232", // account 19 (ETH)
+    // "0xce87cf2d6e4538de51799f4066e70bb0b21362b0", // account 20 (ETH)
+    // "0x5f14f5c101dc9ff516c0049b33d38ef682d91054", // account 21 (ETH)
+    // "0x9b44ae1eeeffd64f17d366ba258ff79f34851461", // account 22 (ETH)
+    // "0xea0a90da2802ffa1572e801a6684827e1868b55f", // account 23 (ETH)
+    // "0xf120a9dcff42454b05527192b8f89ba22991374b", // account 24 (ETH)
+    // "0x280eb55775e47ffe31179cf9cfe51c2ae5be7ddc", // account 25 (ETH)
+    // "0xc4802ac037e92c97732e18b9202ff1ad576b381c", // account 26 (ETH)
+    // "0xcd89a708ba551a506ab91acca878dca058ae4263", // account 27 (ETH)
+    // "0xa308186fef23826061eb0cf03996782b338599a1", // account 28 (ETH)
+    // "0x9d79069d14f29aff5aed037c32daf6a9984650ee", // account 29 (ETH)
+    // "0x12e84207ed531087fdcf092bb4a9bef536cabedc", // account 30 (ETH)
+
 ];
 const pointWithWeights = [{
                 value: 5,
                 weight: 1,
             }, {
                 value: 6,
-                weight: 2,
+                weight: 1,
             }, {
                 value: 7,
                 weight: 3,
@@ -132,21 +153,22 @@ async function start() {
             await promise;
 
             const MAX_REST_PERIOD = 3 * Time.HOUR;
-            let currentRestTime = 0;
+            let currentRestTime = Date.now();
+            let countError = 0;
             while(true) {
-                const now = new Date();
-                const shouldRest = Math.random() > 0.5 && currentRestTime + 16 * Time.HOUR <= now.getTime();
+                const nowUnix = Date.now();
+                const shouldRest = currentRestTime + 16 * Time.HOUR <= nowUnix && Math.random() > 0.5;
                 if (shouldRest) {
                     console.log(`${walletAddress}: Start long resting period`);
                     const { promise, timeMs } = Timer.sleepRandom(0, MAX_REST_PERIOD);
                     console.log(`${walletAddress}: Sleeping for ${timeMs / Time.MINUTE} minutes`);
-                    currentRestTime = now.getTime();
+                    currentRestTime = nowUnix;
                     await promise;
                 }
                 // const gitcoinScore = await getGitcoinScore(walletAddress);            
                 // if (gitcoinScore > 0) {
                     // console.log(`${walletAddress}: ${gitcoinScore} Gitcoin score`);
-                    const { promise, timeMs } = Timer.sleepRandom(5 * Time.MINUTE + MINING_TIME,  20 * Time.MINUTE + MINING_TIME);
+                    const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + MINING_TIME,  30 * Time.MINUTE + MINING_TIME);
                     console.log(`${walletAddress}: Sleeping for ${timeMs / Time.MINUTE} minutes`);
                     await promise;
                 // } else {
@@ -162,7 +184,12 @@ async function start() {
                     }
                 } catch(e) {
                     console.log(`${walletAddress}: Failed to send points`, e);
-                    break;
+                    if (countError >= 10) {
+                        console.log(`${walletAddress}: Too many errors. Stop sending points`);
+                        break;
+                    } else {
+                        countError++;
+                    }
                 }
             }
             return Promise.resolve();
