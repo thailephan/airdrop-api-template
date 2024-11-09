@@ -73,11 +73,19 @@ const getGitcoinScore = async (address: string) => {
     }
 }
 const walletAddresses = [
-    // "0x7a6E3bE8FDa47039473D2aA39bFC89AA54dDCcfa",
+    // rasperry pi
+    // "0x7a6E3bE8FDa47039473D2aA39bFC89AA54dDCcfa", // OKX (ETH)
+    // "0x8bec3ce1dc85a0759a4e40ebe859d48f30a93ca9", // account 1 (ETH)
     // "0xea87e804debaf4e5016b02068ca3f6e3abe4a080", // account 2 (ETH)
+    // "0xf293b321f6b33bb0a7f9cde5f093588b10bbe33d", // account 3 (ETH)
+
+    // hemi
     "0xdadf939489fb5204d1f3c4b9fc11b42e3db02c5c", // account 4 (ETH)
+    "0xd77247904bded68940a463c28317ee59ef826dbd", // account 5 (ETH)
     "0x07ff33a581e68f57961edd39c420e4fcd4c526bf", // account 6 (ETH)
+    "0x08767368d6f388c0c0bc7f2020cc8132875ab611", // account 7 (ETH)
     "0xb7b3c7ecc63897ed9d05227eb2c6924ffd18c38c", // account 8 (ETH)
+    "0x2ed7c0bb40ee646dd3fdf75b39217c432161df62", // account 9 (ETH)
     "0xc1233b18c03686f5dc9a772bce0eda5b6677c6fe", // account 10 (ETH)
 ];
 const pointWithWeights = [{
@@ -123,11 +131,22 @@ async function start() {
             console.log(`${walletAddress}: Start first sleeping for ${timeMs / Time.SECOND} seconds`);
             await promise;
 
+            const MAX_REST_PERIOD = 3 * Time.HOUR;
+            let currentRestTime = 0;
             while(true) {
+                const now = new Date();
+                const shouldRest = Math.random() > 0.5 && currentRestTime + 16 * Time.HOUR <= now.getTime();
+                if (shouldRest) {
+                    console.log(`${walletAddress}: Start long resting period`);
+                    const { promise, timeMs } = Timer.sleepRandom(0, MAX_REST_PERIOD);
+                    console.log(`${walletAddress}: Sleeping for ${timeMs / Time.MINUTE} minutes`);
+                    currentRestTime = now.getTime();
+                    await promise;
+                }
                 // const gitcoinScore = await getGitcoinScore(walletAddress);            
                 // if (gitcoinScore > 0) {
                     // console.log(`${walletAddress}: ${gitcoinScore} Gitcoin score`);
-                    const { promise, timeMs } = Timer.sleepRandom(MINING_TIME, 2 * Time.MINUTE + MINING_TIME);
+                    const { promise, timeMs } = Timer.sleepRandom(5 * Time.MINUTE + MINING_TIME,  20 * Time.MINUTE + MINING_TIME);
                     console.log(`${walletAddress}: Sleeping for ${timeMs / Time.MINUTE} minutes`);
                     await promise;
                 // } else {
