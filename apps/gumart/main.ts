@@ -335,28 +335,25 @@ interface UserData {
     proxy?: string | undefined;
 }
 class Main {
+    static appProxyChecker = new AppProxyChecker();
+    static rotateProxyController = new ProxyMartRotateProxyController("ae6b50a4-5067-48df-8b2d-8f15e6595a17");
     static async start(users: UserData[]) {
-        const START_USER_INDEX = accountsPerProxy * 3;
-        const END_USER_INDEX = accountsPerProxy * 4;
-
         const NUM_OF_ACCOUNT_TO_REROTATE_RROXY = 5;
-        const appProxyChecker = new AppProxyChecker();
-        const rotateProxyController = new ProxyMartRotateProxyController("ae6b50a4-5067-48df-8b2d-8f15e6595a17");
 
         while (true) {
-            const totalUsers = users.slice(START_USER_INDEX, END_USER_INDEX);
+            const totalUsers = users;
             const randomUserIndexes = Array.from({ length: totalUsers.length }, (_, index) => index).sort(() => Math.random() - 0.5);
             const failedUsers: UserData[] = [];
             for(let i = 0; i < totalUsers.length; i += 1) {
                 const user = totalUsers[randomUserIndexes[i]];
-                const proxyIP = await appProxyChecker.check(user.proxy);
+                const proxyIP = await Main.appProxyChecker.check(user.proxy);
                 if (proxyIP) {
                     const application = new GameTelegramApplication(user, { maxRuns: 1 });
                     await application.execute();
 
                     const { host: proxyHost, port: proxyPort } = extractProxyComponents(user.proxy) as { host: string, port: number } || { };
                     if (i % NUM_OF_ACCOUNT_TO_REROTATE_RROXY === 0 && proxyHost && proxyPort) {
-                        const rotateProxyResponse = await rotateProxyController.action(proxyHost, proxyPort);
+                        const rotateProxyResponse = await Main.rotateProxyController.action(proxyHost, proxyPort);
                         console.log(`Proxy rotated: ${rotateProxyResponse.success}`);
                         await Timer.sleepRandom(2 * Time.MINUTE + 10 * Time.SECOND, 2 * Time.MINUTE + 40 * Time.SECOND).promise;
                     } else {
@@ -369,7 +366,7 @@ class Main {
 
             if (failedUsers.length > 0) {
                 const paidProxy = failedUsers.find(user => !!user.proxy);
-                const firstCheckProxyIP = await appProxyChecker.check(paidProxy?.proxy);
+                const firstCheckProxyIP = await Main.appProxyChecker.check(paidProxy?.proxy);
                 if (paidProxy && paidProxy.proxy && !firstCheckProxyIP) {
                     const proxy = paidProxy.proxy;
                     const MAX_PROXY_RETRY_TIMES = 10;
@@ -381,10 +378,10 @@ class Main {
                                 break;
                             }
 
-                            await rotateProxyController.action(proxyComponents.host, proxyComponents.port);
+                            await Main.rotateProxyController.action(proxyComponents.host, proxyComponents.port);
                             await Timer.sleepRandom(2 * Time.MINUTE + 5 * Time.SECOND, 2 * Time.MINUTE + 10 * Time.SECOND).promise;
 
-                            const proxyIP = await appProxyChecker.check(proxy);
+                            const proxyIP = await Main.appProxyChecker.check(proxy);
                             if (proxyIP === undefined) {
                                 throw Error("ProxyIP is undefined");
                             }
@@ -397,14 +394,14 @@ class Main {
 
                 for (let i = 0; i < failedUsers.length; i += 1) {
                     const user = failedUsers[i];
-                    const proxyIP = await appProxyChecker.check(user.proxy);
+                    const proxyIP = await Main.appProxyChecker.check(user.proxy);
                     if (proxyIP) {
-                        const application = new GameTelegramApplication(user, { maxRuns: 1, proxyController: rotateProxyController });
+                        const application = new GameTelegramApplication(user, { maxRuns: 1, proxyController: Main.rotateProxyController });
                         await application.execute();
 
                         const { host: proxyHost, port: proxyPort } = extractProxyComponents(user.proxy) as { host: string, port: number } || { };
                         if (i !== 0 && i % NUM_OF_ACCOUNT_TO_REROTATE_RROXY === 0 && proxyHost && proxyPort) {
-                            const rotateProxyResponse = await rotateProxyController.action(proxyHost, proxyPort);
+                            const rotateProxyResponse = await Main.rotateProxyController.action(proxyHost, proxyPort);
                             console.log(`Proxy rotated: ${rotateProxyResponse.success}`);
                             await Timer.sleepRandom(2 * Time.MINUTE + 10 * Time.SECOND, 2 * Time.MINUTE + 40 * Time.SECOND).promise;
                         } else {
@@ -674,20 +671,26 @@ const accounts = [
 	"151870739|BFWmAF5Reb7ySwOBKuqCLtOirVg4H9inEoh44Nr8551f9086", // account 240
 ]
 const proxies = [
+    // raspberry pi
+    undefined,
+
+    // hemi server
     "proxymart49728:xrbdIDHD@103.15.89.251:49728",
-    undefined,
-    undefined,
+    "proxymart49015:JWHMkzig@103.170.246.83:49015",
+    "proxymart50677:tjtrPste@103.90.231.0:50677",
     undefined,
 ];
 const accountsPerProxy = Math.ceil(accounts.length / proxies.length);
-const accountsWithProxy = accounts.map((item, index) => {
-    const proxyIndex = Math.floor(index / accountsPerProxy) % proxies.length;
-    return {
+
+const start_proxy_segment_index = 0;
+const end_proxy_segment_index = 1;
+proxies.slice(start_proxy_segment_index, end_proxy_segment_index).forEach((proxy, index) => {
+    const selectedAccounts = accounts.slice(index * accountsPerProxy, (index + 1) * accountsPerProxy).map((item) => ({
         token: item,
-        proxy: proxies[proxyIndex],
-    }
-}).filter(s => !!s) as UserData[];
-Main.start(accountsWithProxy).then().catch(console.error);
+        proxy,
+    })) as UserData[];
+    Main.start(selectedAccounts).then().catch(console.error);
+})
 
 
 const generateGumartAPIRequestKey = async (timestamp: number, t: string, n: string, key: string) => {
