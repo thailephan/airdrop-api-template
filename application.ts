@@ -1,15 +1,15 @@
 import { InitData, InitDataExtractor } from "./common/initData.ts";
 import { logger } from "./common/logger.ts";
 import { Time, Timer } from "./common/timer.ts";
+import { ProxyController } from "./services/proxy/proxy-controller.ts";
 import { AppProxy } from "./services/proxy/proxy.ts";
 
 export interface TelegramApplicationConfigs {
     maxRuns?: number;
+    proxyController?: ProxyController;
 }
 abstract class TelegramApplication {
-    protected configs: TelegramApplicationConfigs = {
-        maxRuns: 0,
-    };
+    protected configs: TelegramApplicationConfigs = { maxRuns: 0, };
     protected allowStartApp: boolean = true;
     private MIN_EXECUTION_INTERVAL: number = Time.HOUR * 4;    
     private MAX_EXECUTION_INTERVAL: number = Time.HOUR * 6;
