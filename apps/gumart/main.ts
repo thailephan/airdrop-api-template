@@ -411,7 +411,7 @@ class Main {
                 }
             }
 
-            const { promise, time } = Timer.sleepRandom(30 * Time.MINUTE, 60 * Time.MINUTE);
+            const { promise, time } = Timer.sleepRandom(10 * Time.MINUTE, 30 * Time.MINUTE);
             console.log(`Wait ${time} second(s) to next execution`);
             await promise;
         }
