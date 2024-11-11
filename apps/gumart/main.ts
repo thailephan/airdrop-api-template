@@ -342,10 +342,11 @@ class Main {
 
         while (true) {
             const totalUsers = users;
-            const randomUserIndexes = Array.from({ length: totalUsers.length }, (_, index) => index).sort(() => Math.random() - 0.5);
+            // const randomUserIndexes = Array.from({ length: totalUsers.length }, (_, index) => index).sort(() => Math.random() - 0.5);
             const failedUsers: UserData[] = [];
             for(let i = 0; i < totalUsers.length; i += 1) {
-                const user = totalUsers[randomUserIndexes[i]];
+                // const user = totalUsers[randomUserIndexes[i]];
+                const user = totalUsers[i];
                 const proxyIP = await Main.appProxyChecker.check(user.proxy);
                 if (proxyIP) {
                     const application = new GameTelegramApplication(user, { maxRuns: 1 });
@@ -354,7 +355,7 @@ class Main {
                     const { host: proxyHost, port: proxyPort } = extractProxyComponents(user.proxy) as { host: string, port: number } || { };
                     if (i % NUM_OF_ACCOUNT_TO_REROTATE_RROXY === 0 && proxyHost && proxyPort) {
                         const rotateProxyResponse = await Main.rotateProxyController.action(proxyHost, proxyPort);
-                        console.log(`Proxy rotated: ${rotateProxyResponse.success}`);
+                        console.log(`${proxyHost}:${proxyPort}: Proxy rotated: ${rotateProxyResponse.success}, new IP: ${proxyIP}`);
                         await Timer.sleepRandom(2 * Time.MINUTE + 10 * Time.SECOND, 2 * Time.MINUTE + 40 * Time.SECOND).promise;
                     } else {
                         await Timer.sleep(20 * Time.SECOND);
@@ -379,11 +380,13 @@ class Main {
                             }
 
                             await Main.rotateProxyController.action(proxyComponents.host, proxyComponents.port);
-                            await Timer.sleepRandom(2 * Time.MINUTE + 5 * Time.SECOND, 2 * Time.MINUTE + 10 * Time.SECOND).promise;
+                            await Timer.sleepRandom(2 * Time.MINUTE + 10 * Time.SECOND, 2 * Time.MINUTE + 40 * Time.SECOND).promise;
 
                             const proxyIP = await Main.appProxyChecker.check(proxy);
                             if (proxyIP === undefined) {
-                                throw Error("ProxyIP is undefined");
+                                throw Error(`${proxyComponents.host}:${proxyComponents.port}: ProxyIP is undefined`);
+                            } else {
+                                break;
                             }
                         } catch (e) {
                             console.log(`Retry ${proxyRetryCount} for failed users, failed to check proxy: ${e}`);
@@ -402,7 +405,7 @@ class Main {
                         const { host: proxyHost, port: proxyPort } = extractProxyComponents(user.proxy) as { host: string, port: number } || { };
                         if (i !== 0 && i % NUM_OF_ACCOUNT_TO_REROTATE_RROXY === 0 && proxyHost && proxyPort) {
                             const rotateProxyResponse = await Main.rotateProxyController.action(proxyHost, proxyPort);
-                            console.log(`Proxy rotated: ${rotateProxyResponse.success}`);
+                        console.log(`${proxyHost}:${proxyPort}: Proxy rotated: ${rotateProxyResponse.success}, new IP: ${proxyIP}`);
                             await Timer.sleepRandom(2 * Time.MINUTE + 10 * Time.SECOND, 2 * Time.MINUTE + 40 * Time.SECOND).promise;
                         } else {
                             await Timer.sleep(20 * Time.SECOND);
@@ -411,7 +414,7 @@ class Main {
                 }
             }
 
-            const { promise, time } = Timer.sleepRandom(10 * Time.MINUTE, 30 * Time.MINUTE);
+            const { promise, time } = Timer.sleepRandom(5 * Time.MINUTE, 10 * Time.MINUTE);
             console.log(`Wait ${time} second(s) to next execution`);
             await promise;
         }
@@ -675,9 +678,10 @@ const proxies = [
     undefined,
 
     // hemi server
-    "proxymart49728:xrbdIDHD@103.15.89.251:49728",
     "proxymart49015:JWHMkzig@103.170.246.83:49015",
     "proxymart50677:tjtrPste@103.90.231.0:50677",
+    "proxymart49484:MgLyVQUJ@103.241.199.84:49484",
+    "proxymart50188:BsMvKShe@103.90.231.0:50188",
     undefined,
 ];
 const accountsPerProxy = Math.ceil(accounts.length / proxies.length);
