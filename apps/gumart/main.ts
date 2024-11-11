@@ -338,15 +338,14 @@ class Main {
     static appProxyChecker = new AppProxyChecker();
     static rotateProxyController = new ProxyMartRotateProxyController("ae6b50a4-5067-48df-8b2d-8f15e6595a17");
     static async start(users: UserData[]) {
-        const NUM_OF_ACCOUNT_TO_REROTATE_RROXY = 5;
+        const NUM_OF_ACCOUNT_TO_REROTATE_RROXY = 2;
 
         while (true) {
             const totalUsers = users;
-            // const randomUserIndexes = Array.from({ length: totalUsers.length }, (_, index) => index).sort(() => Math.random() - 0.5);
+            const randomUserIndexes = Array.from({ length: totalUsers.length }, (_, index) => index).sort(() => Math.random() - 0.5);
             const failedUsers: UserData[] = [];
             for(let i = 0; i < totalUsers.length; i += 1) {
-                // const user = totalUsers[randomUserIndexes[i]];
-                const user = totalUsers[i];
+                const user = totalUsers[randomUserIndexes[i]];
                 const proxyIP = await Main.appProxyChecker.check(user.proxy);
                 if (proxyIP) {
                     const application = new GameTelegramApplication(user, { maxRuns: 1 });
