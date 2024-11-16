@@ -35,7 +35,6 @@ const sendTokens = async (recipient: string, point: number) => {
 
         const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
         const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-        console.log(`${recipient}: Transaction receipt:`, receipt);
         
         const transactionHashUrl = `https://blockscan-evm.kafirchain.site/tx/${receipt.transactionHash}`;
         return transactionHashUrl;
@@ -92,16 +91,16 @@ const walletAddresses = [
     "0x5f7fd517588df57b05e4b74e59ddcb90842829a1", // account 15 (ETH)
 
     // rasperry pi
-    // "0x4a5334040df90b203d78edeaae0320d4f1329197", // account 16 (ETH)
-    // "0xe57b67d85a3fc9622dad3ee86966545bc5e2907c", // account 17 (ETH)
-    // "0x60261383f9a69146bdf2443be35d4911191ced05", // account 18 (ETH)
-    // "0x31d91c8c57b410299c712f79452bff79eaaf6232", // account 19 (ETH)
-    // "0xce87cf2d6e4538de51799f4066e70bb0b21362b0", // account 20 (ETH)
-    // "0x5f14f5c101dc9ff516c0049b33d38ef682d91054", // account 21 (ETH)
-    // "0x9b44ae1eeeffd64f17d366ba258ff79f34851461", // account 22 (ETH)
-    // "0xea0a90da2802ffa1572e801a6684827e1868b55f", // account 23 (ETH)
-    // "0xf120a9dcff42454b05527192b8f89ba22991374b", // account 24 (ETH)
-    // "0x280eb55775e47ffe31179cf9cfe51c2ae5be7ddc", // account 25 (ETH)
+    "0x4a5334040df90b203d78edeaae0320d4f1329197", // account 16 (ETH)
+    "0xe57b67d85a3fc9622dad3ee86966545bc5e2907c", // account 17 (ETH)
+    "0x60261383f9a69146bdf2443be35d4911191ced05", // account 18 (ETH)
+    "0x31d91c8c57b410299c712f79452bff79eaaf6232", // account 19 (ETH)
+    "0xce87cf2d6e4538de51799f4066e70bb0b21362b0", // account 20 (ETH)
+    "0x5f14f5c101dc9ff516c0049b33d38ef682d91054", // account 21 (ETH)
+    "0x9b44ae1eeeffd64f17d366ba258ff79f34851461", // account 22 (ETH)
+    "0xea0a90da2802ffa1572e801a6684827e1868b55f", // account 23 (ETH)
+    "0xf120a9dcff42454b05527192b8f89ba22991374b", // account 24 (ETH)
+    "0x280eb55775e47ffe31179cf9cfe51c2ae5be7ddc", // account 25 (ETH)
     // "0xc4802ac037e92c97732e18b9202ff1ad576b381c", // account 26 (ETH)
     // "0xcd89a708ba551a506ab91acca878dca058ae4263", // account 27 (ETH)
     // "0xa308186fef23826061eb0cf03996782b338599a1", // account 28 (ETH)
@@ -141,7 +140,7 @@ const pointWithWeights = [{
                 weight: 4,
             }, {
                 value: 15,
-                weight: 3,
+                weight: 4,
 }]
 async function start() {
     const promises = [];
@@ -157,18 +156,18 @@ async function start() {
             let countError = 0;
             while(true) {
                 const nowUnix = Date.now();
-                const shouldRest = currentRestTime + 16 * Time.HOUR <= nowUnix && Math.random() > 0.5;
+                const shouldRest = currentRestTime + 20 * Time.HOUR <= nowUnix && Math.random() > 0.5;
                 if (shouldRest) {
                     console.log(`${walletAddress}: Start long resting period`);
                     const { promise, timeMs } = Timer.sleepRandom(0, MAX_REST_PERIOD);
                     console.log(`${walletAddress}: Sleeping for ${timeMs / Time.MINUTE} minutes`);
-                    currentRestTime = nowUnix;
                     await promise;
+                    currentRestTime = Date.now();
                 }
                 // const gitcoinScore = await getGitcoinScore(walletAddress);            
                 // if (gitcoinScore > 0) {
                     // console.log(`${walletAddress}: ${gitcoinScore} Gitcoin score`);
-                    const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + MINING_TIME,  30 * Time.MINUTE + MINING_TIME);
+                    const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + MINING_TIME, 5 * Time.MINUTE + MINING_TIME);
                     console.log(`${walletAddress}: Sleeping for ${timeMs / Time.MINUTE} minutes`);
                     await promise;
                 // } else {
