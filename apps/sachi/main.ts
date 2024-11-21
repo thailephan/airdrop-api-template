@@ -218,6 +218,165 @@ class Service {
         return fetch(`https://api.sachi.game/api/users/${request.userId}`, {
             "headers": request.headers,
             "body": JSON.stringify(request.data),
+            // "body": JSON.stringify({
+            //     "staff": [
+            //         {
+            //             "categoryId": "60f70d7a8f9d5a2b0d4e3e5b",
+            //             "level": 20,
+            //             "_id": "670d05df67dbb47e691a8f88"
+            //         },
+            //         {
+            //             "categoryId": "60a7e3b2f4e6d5b3c2a4c8e0",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d300167c"
+            //         },
+            //         {
+            //             "categoryId": "62b1d6a3e4c5b2f3a8e0f3a5",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d3001690"
+            //         },
+            //         {
+            //             "categoryId": "60e2f7b1c4e3d2a9b8c1f4e5",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d30016a4"
+            //         }
+            //     ],
+            //     "profitPerHour": 217920
+            // }),
+
+            // serviceAreas
+            // body: JSON.stringify({
+            //     profitPerHour: 35068,
+            //     serviceAreas: [
+            //         {
+            //             "categoryId": "60c78b2a4e7d4c2e8e5f1c7a",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d300162c"
+            //         },
+            //         {
+            //             "categoryId": "60c3d2e8b1f5a4e6c0e7b9f4",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d3001640"
+            //         },
+            //         {
+            //             "categoryId": "5f3e8b6c0a2d5f4e8c7a1d3b",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d3001654"
+            //         }
+            //     ]
+            // }),
+
+            // specialAreas
+            // body: JSON.stringify({
+            //     profitPerHour: 150200,
+            //     specialAreas: [
+            //         {
+            //             "categoryId": "62b84e5e0a3d2b4c5e4e8c8f",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d30015dc"
+            //         },
+            //         {
+            //             "categoryId": "5c9b8f1234d4f5e3d8e4a7b6",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d30015f0"
+            //         },
+            //         {
+            //             "categoryId": "62d70f9c0c5b2b1a3a8e4e0f",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d3001604"
+            //         },
+            //         {
+            //             "categoryId": "5f7b2a9d2e5e3f2a8c3e6b1d",
+            //             "level": 20,
+            //             "_id": "670cfed867dbb47e6919a593"
+            //         }
+            //     ]
+            // }),
+
+            // special games
+            // body: JSON.stringify({
+            //     profitPerHour: 150200,
+            //     specialGames: [
+            //         {
+            //             "categoryId": "62f78a1e2b5d3a4c1e9e4c8b",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d3001528"
+            //         },
+            //         {
+            //             "categoryId": "5c7f1a0e6b8d4c3a5e2b9e1d",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d300153c"
+            //         },
+            //         {
+            //             "categoryId": "60b8e4f2d5c1a3b8e7a9f6e0",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d3001550"
+            //         },
+            //         {
+            //             "categoryId": "62d6a5b4f8e2c3a1e4e0d8f9",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d3001564"
+            //         },
+            //         {
+            //             "categoryId": "5f5e1c8d4a7b6e2f0c3e9b1c",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d3001578"
+            //         },
+            //         {
+            //             "categoryId": "62e4f1b3c5a8d2e0e1c3b7f6",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d300158c"
+            //         },
+            //         {
+            //             "categoryId": "62c56a7b13d4e6a3c5e5fca1",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d30015a0"
+            //         },
+            //         {
+            //             "categoryId": "5c6b7e2d4e77a22d8b4e28af",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d30015b4"
+            //         },
+            //         {
+            //             "categoryId": "5f6f3e0a4e4a2c5a91c1a4f3",
+            //             "level": 20,
+            //             "_id": "66f15a9990005e30d30015c8"
+            //         }
+            //     ]
+            // }),
+
+//             body: JSON.stringify({
+//                 profitPerHour: 100000000,
+//                 tableGames: [
+//     {
+//         "categoryId": "666bcf12e5fb403dbdc23b5c",
+//         "level": 20,
+//         "_id": "66f15a9990005e30d30014ec"
+//     },
+//     {
+//         "categoryId": "5f1a5c7e5e7d4d46a83c99a5",
+//         "level": 20,
+//         "_id": "66f15a9990005e30d3001500"
+//     },
+//     {
+//         "categoryId": "60d5f9b9e6b01e3c5d8b23e0",
+//         "level": 20,
+//         "_id": "66f15a9990005e30d3001514"
+//     }
+// ]
+//             }),
+
+            // upgrade energy
+            // body: JSON.stringify({
+            //     "energy": 10539.166636000038,
+            //     "maxEnergy": 33300
+            // }),
+
+            // upgrade recharge speed
+            // body: JSON.stringify({
+            //     "energy": 10380.083329999998,
+            //     "rechargeSpeed": 0.708333
+            // }),
             "method": "PUT"
         }).then((response) => response.json());
     }
@@ -226,7 +385,7 @@ class Service {
 class GameTelegramApplication extends TelegramApplication {
     headers: FetchHeaders;
     user: UserData;
-    EXECUTION_INTERVAL: number = Time.HOUR * 1;
+    EXECUTION_INTERVAL: number = Time.HOUR * 4;
 
     constructor(user: UserData) {
         super(user.initData, user.proxy);
@@ -274,7 +433,7 @@ class GameTelegramApplication extends TelegramApplication {
             accountData.energy = Math.min(U, user.maxEnergy);
         }, 1e3)
 
-        const times = 10000;
+        const times = 100;
         let current = 0;
         const wheelSpinCostInEnergy = 900;
         while(times > current) {
@@ -284,7 +443,7 @@ class GameTelegramApplication extends TelegramApplication {
                 if (newEnergy >= 0) {
                     let raffleReward = randomRewards(rewards);
                     // let raffleReward = randomRewards(rewards.filter(r => r.type === "shards"));
-                    if (newEnergy < 1000) {
+                    if (newEnergy < 1000 && Math.random() < 0.1) {
                         const index = rewards.find(i => i.type === "energy")?.position || 0;
                         raffleReward = { rewardObj: rewards[index], index };
                     }
@@ -378,11 +537,17 @@ class Main {
 }
 
 const users = [
+    // {
+    //     proxy: undefined,
+    //     // initData: "query_id=AAFyEEJlAgAAAHIQQmWXAYVQ&user=%7B%22id%22%3A5993795698%2C%22first_name%22%3A%22Thai%F0%9F%8C%B1SEED%22%2C%22last_name%22%3A%22Le%20%F0%9F%92%8ECR%20%F0%9F%8D%85%22%2C%22username%22%3A%22thailephan%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1730355085&hash=b36a3242c6817db2eafac75b304e0af8f4a11121053bcc0aa805f59ad4f0dab6"
+    //     initData: "",
+    //     userId: "5993795698",
+    // },
     {
         proxy: undefined,
         // initData: "query_id=AAFyEEJlAgAAAHIQQmWXAYVQ&user=%7B%22id%22%3A5993795698%2C%22first_name%22%3A%22Thai%F0%9F%8C%B1SEED%22%2C%22last_name%22%3A%22Le%20%F0%9F%92%8ECR%20%F0%9F%8D%85%22%2C%22username%22%3A%22thailephan%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1730355085&hash=b36a3242c6817db2eafac75b304e0af8f4a11121053bcc0aa805f59ad4f0dab6"
         initData: "",
-        userId: "5993795698",
+        userId: "7038003725",
     },
 ] as UserData[];
 Main.start(users).then().catch(console.error);
@@ -618,7 +783,7 @@ const rewards: Reward[] = [
     {
         "reward": 1800,
         "type": "energy",
-        "chance": 5.5,
+        "chance": 3,
         // "chance": 15,
         "iconName": "energy_1800.png",
         "_id": "66f15a9990005e30d30016c7",
@@ -637,7 +802,7 @@ const rewards: Reward[] = [
         "reward": 100,
         "type": "gold",
         // "chance": 25,
-        "chance": 1,
+        "chance": 10,
         "iconName": "gold_100.png",
         "_id": "66f15a9990005e30d30016c3",
         "position": 10
