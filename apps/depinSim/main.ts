@@ -250,7 +250,7 @@ class Main {
 const users = [
     {
         proxy: undefined,
-        initData: "query_id=AAFyEEJlAgAAAHIQQmWXAYVQ&user=%7B%22id%22%3A5993795698%2C%22first_name%22%3A%22Thai%F0%9F%8C%B1SEED%22%2C%22last_name%22%3A%22Le%20%F0%9F%92%8ECR%20%F0%9F%8D%85%22%2C%22username%22%3A%22thailephan%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1730355085&hash=b36a3242c6817db2eafac75b304e0af8f4a11121053bcc0aa805f59ad4f0dab6"
+        initData: "query_id=AAFyEEJlAgAAAHIQQmXE62dU&user=%7B%22id%22%3A5993795698%2C%22first_name%22%3A%22thailephan%22%2C%22last_name%22%3A%22SEED%20%F0%9F%8C%B1%7C%20%F0%9F%A5%A5%22%2C%22username%22%3A%22thailephan%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2F8KU3glJr3QRZ6ubZdJWsTbeONSyYhWvR_E613pvrV1cpoU7kzHmnjpeKbinuit96.svg%22%7D&auth_date=1733627890&signature=DNUr4ETk_aQICrnasZ1FIMk_SYLcw-re5QI1wWqau6eZgGEwjE-Aqxj274C8zgLA6-A0NlsiA1Vbc6HZrpE9BA&hash=eee5cf742176dd918370b97aec375404c242346250ad09a74389132639ddcb5e"
     },
 ] as UserData[];
 Main.start(users).then().catch(console.error);
