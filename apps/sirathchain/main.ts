@@ -6,7 +6,7 @@ const MINING_TIME = 10 * Time.MINUTE;
 
 const privateKey = "7ce55874ec36e1dafae9dcacbd4bd84aa0ac1ad2945cb3ad6c8fb021a0291da3";
 const tokenContractAddress = "0xf4E817e97DfD23d1dE4A234F1C6efaDc133aEa87";
-const rpcUrl = "https://3d.dymension.evm.cumulo.org.es";
+const rpcUrl = "https://3d.dymension.rpc.cumulo.org.es";
 
 const API_BASE_URL = "https://miner-server.sirath.network/api";
 
@@ -43,6 +43,7 @@ const mintTokens = async (recipient: string, amount: number) => {
 
       // Increase gas limit by 20% using web3.utils
       const gasLimit = web3.utils.toHex(Math.floor(Number(estimatedGas) * 1.2));
+        console.log("Estimated gas:", estimatedGas, "Gas Limit", gasLimit);
 
       const tx = {
         from: zeroAddress,
@@ -52,13 +53,14 @@ const mintTokens = async (recipient: string, amount: number) => {
         nonce,
         data: tokenContract.methods.mintTo(recipient, amountInWei).encodeABI(),
       };
+      console.log("Transaction:", tx);
 
       const signedTx = await web3.eth.accounts.signTransaction(
         tx,
         formattedPrivateKey
       );
+      console.log("Signed transaction:", signedTx);
 
-      // Wait for the transaction to be mined with a timeout
       const receipt: { transactionHash?: string } = await new Promise((resolve, reject) => {
         const timeout = setTimeout(() => {
           reject(new Error("Transaction timeout"));
@@ -154,22 +156,22 @@ interface UnClaimedRewardsResponse {
 }
 const getUnclaimedRewards = async (address: string): Promise<UnClaimedRewardsResponse> => {
     const response = await fetch(`${API_BASE_URL}/unclaimed-rewards/${address}`, {
-        headers: {
-            accept: 'application/json, text/plain, */*',
-            acceptLanguage: 'en-US,en;q=0.6',
-            ifNoneMatch: 'W/"ce-VMgPLubkzLGNt6b3SCrv5mAnKLc"',
-            secChUa: '"Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
-            secChUaMobile: '?0',
-            secChUaPlatform: '"Windows"',
-            secFetchDest: 'empty',
-            secFetchMode: 'cors',
-            secFetchSite: 'same-site',
-            secGpc: '1',
-            Referer: 'https://mining.sirath.network/',
-            ReferrerPolicy: 'strict-origin-when-cross-origin',
-        },
-        body: null,
-        method: 'GET',
+    "headers": {
+        "accept": "application/json, text/plain, */*",
+        "accept-language": "en-US,en;q=0.6",
+        "sec-ch-ua": "\"Brave\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "sec-gpc": "1",
+        "Referer": "https://mining.sirath.network/",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    },
+    "body": null,
+    "method": "GET"
     });
     return { data: await response.json() };
 }
@@ -233,39 +235,38 @@ const startMiningSession = async (request: StartMiningSessionRequest): Promise<S
 
 const processMiningSession = async (session: { id: number, address: string, end_time: number, token_amount: number }) => {
     const waitTime = session.end_time - Date.now();
-    const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + waitTime, 5 * Time.MINUTE + waitTime);
-    console.log(`${session.address}: Start waiting for ${timeMs / Time.MINUTE} minutes`);
-    await promise;
+    if (waitTime > 0) {
+        const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + waitTime, 5 * Time.MINUTE + waitTime);
+        console.log(`${session.address}: Start waiting for ${timeMs / Time.MINUTE} minutes`);
+        await promise;
+    }
 
-    const txHash = await mintTokens(session.address, session.token_amount);
-    await claimMiningSession({ sessionId: session.id });
-    console.log(`${session.address}: Mined ${session.token_amount} tokens. Check transaction at ${txHash}`);
+    // console.log(`${session.address}: Start minting ${session.token_amount} tokens`);
+    // const txHash = await mintTokens(session.address, session.token_amount);
+    // console.log(`${session.address}: Mined ${session.token_amount} tokens. Check transaction at https://evm-explorer.sirath.network/tx/${txHash}`);
+    // await claimMiningSession({ sessionId: session.id });
+    // console.log(`${session.address}: Claimed mining session ${session.id}`);
 }
 async function mining(walletAddress: string) {
     const miningSession = await getCurrentMiningSession(walletAddress);
 
     if (miningSession === null) {
         console.log(`${walletAddress}: Start new mining session`);
-        try {
-            const tokenAmount = getTokenAmount();
-            const miningTimeInSecond = MINING_TIME / Time.SECOND;
-            const response = await startMiningSession({
-                address: walletAddress,
-                tokenAmount,
-                miningTime: miningTimeInSecond,
-            });
+        const tokenAmount = getTokenAmount();
+        const miningTimeInSecond = MINING_TIME / Time.SECOND;
+        const response = await startMiningSession({
+            address: walletAddress,
+            tokenAmount,
+            miningTime: miningTimeInSecond,
+        });
 
-            if (response) {
-                await processMiningSession({
-                    id: response.id,
-                    address: response.address,
-                    end_time: response.endTime,
-                    token_amount: response.tokenAmount,
-                })
-            }
-        } catch(e) {
-            console.log(`${walletAddress}: Failed to claim new mining session`, e);
-            throw e;
+        if (response) {
+            await processMiningSession({
+                id: response.id,
+                address: response.address,
+                end_time: response.endTime,
+                token_amount: response.tokenAmount,
+            })
         }
     } else {
         console.log(`${walletAddress}: Continue mining session`);
@@ -280,7 +281,7 @@ async function mining(walletAddress: string) {
 
 const walletAddresses = [
     // // hemi
-    // "0x7a6E3bE8FDa47039473D2aA39bFC89AA54dDCcfa", // OKX (ETH)
+    // "0x7a6e3be8fda47039473d2aa39bfc89aa54ddccfa", // OKX (ETH)
     // "0x8bec3ce1dc85a0759a4e40ebe859d48f30a93ca9", // account 1 (ETH)
     // "0xea87e804debaf4e5016b02068ca3f6e3abe4a080", // account 2 (ETH)
     // "0xf293b321f6b33bb0a7f9cde5f093588b10bbe33d", // account 3 (ETH)
@@ -294,11 +295,11 @@ const walletAddresses = [
     // "0xd7743f140d3cb617b5e207248bdd7924c969330e", // account 11 (ETH)
     // "0xa402c15e824da8f28249295feafc10d4530f59c3", // account 12 (ETH)
     // "0xb17c476aec85ccecbb522b47549e4ffa53b038eb", // account 13 (ETH)
-    "0xe88955cb472f4ba743343e051ee502bc891edf33", // account 14 (ETH)
-    "0x5f7fd517588df57b05e4b74e59ddcb90842829a1", // account 15 (ETH)
+    // "0xe88955cb472f4ba743343e051ee502bc891edf33", // account 14 (ETH)
+    // "0x5f7fd517588df57b05e4b74e59ddcb90842829a1", // account 15 (ETH)
 
     // // rasperry pi
-    "0x4a5334040df90b203d78edeaae0320d4f1329197", // account 16 (ETH)
+    // "0x4a5334040df90b203d78edeaae0320d4f1329197", // account 16 (ETH)
     // "0xe57b67d85a3fc9622dad3ee86966545bc5e2907c", // account 17 (ETH)
     // "0x60261383f9a69146bdf2443be35d4911191ced05", // account 18 (ETH)
     // "0x31d91c8c57b410299c712f79452bff79eaaf6232", // account 19 (ETH)
@@ -328,11 +329,19 @@ async function start() {
             let currentRestTime = Date.now();
             const ERROR_THRESHHOLD = 10;
             let countError = 0;
+
             while(true) {
                 const nowUnix = Date.now();
                 const shouldRest = currentRestTime + 20 * Time.HOUR <= nowUnix && Math.random() > 0.5;
 
                 if (shouldRest) {
+                    // const sessions = await getUnclaimedRewards(walletAddress);
+                    // if (sessions.data.length > 0) {
+                    //     for (const session of sessions.data) {
+                    //         await processMiningSession(session);
+                    //     }
+                    // }
+
                     console.log(`${walletAddress}: Start long resting period`);
                     const { promise, timeMs } = Timer.sleepRandom(0, MAX_REST_PERIOD);
                     console.log(`${walletAddress}: Sleeping for ${timeMs / Time.MINUTE} minutes`);
