@@ -236,7 +236,7 @@ const startMiningSession = async (request: StartMiningSessionRequest): Promise<S
 const processMiningSession = async (session: { id: number, address: string, end_time: number, token_amount: number }) => {
     const waitTime = session.end_time - Date.now();
     if (waitTime > 0) {
-        const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + waitTime, 5 * Time.MINUTE + waitTime);
+        const { promise, timeMs } = Timer.sleepRandom(5 * Time.MINUTE + waitTime, 30 * Time.MINUTE + waitTime);
         console.log(`${session.address}: Start waiting for ${timeMs / Time.MINUTE} minutes`);
         await promise;
     }
@@ -309,11 +309,11 @@ const walletAddresses = [
     // "0xea0a90da2802ffa1572e801a6684827e1868b55f", // account 23 (ETH)
     // "0xf120a9dcff42454b05527192b8f89ba22991374b", // account 24 (ETH)
     // "0x280eb55775e47ffe31179cf9cfe51c2ae5be7ddc", // account 25 (ETH)
-    // "0xc4802ac037e92c97732e18b9202ff1ad576b381c", // account 26 (ETH)
-    // "0xcd89a708ba551a506ab91acca878dca058ae4263", // account 27 (ETH)
-    // "0xa308186fef23826061eb0cf03996782b338599a1", // account 28 (ETH)
-    // "0x9d79069d14f29aff5aed037c32daf6a9984650ee", // account 29 (ETH)
-    // "0x12e84207ed531087fdcf092bb4a9bef536cabedc", // account 30 (ETH)
+    "0xc4802ac037e92c97732e18b9202ff1ad576b381c", // account 26 (ETH)
+    "0xcd89a708ba551a506ab91acca878dca058ae4263", // account 27 (ETH)
+    "0xa308186fef23826061eb0cf03996782b338599a1", // account 28 (ETH)
+    "0x9d79069d14f29aff5aed037c32daf6a9984650ee", // account 29 (ETH)
+    "0x12e84207ed531087fdcf092bb4a9bef536cabedc", // account 30 (ETH)
 
 ];
 async function start() {
@@ -325,7 +325,7 @@ async function start() {
             // console.log(`${walletAddress}: Start first sleeping for ${timeMs / Time.SECOND} seconds`);
             // await promise;
 
-            const MAX_REST_PERIOD = 3 * Time.HOUR;
+            const MAX_REST_PERIOD = 8 * Time.HOUR;
             let currentRestTime = Date.now();
             const ERROR_THRESHHOLD = 10;
             let countError = 0;
