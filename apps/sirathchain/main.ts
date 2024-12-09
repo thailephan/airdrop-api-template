@@ -236,7 +236,7 @@ const startMiningSession = async (request: StartMiningSessionRequest): Promise<S
 const processMiningSession = async (session: { id: number, address: string, end_time: number, token_amount: number }) => {
     const waitTime = session.end_time - Date.now();
     if (waitTime > 0) {
-        const { promise, timeMs } = Timer.sleepRandom(5 * Time.MINUTE + waitTime, 30 * Time.MINUTE + waitTime);
+        const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + waitTime, 5 * Time.MINUTE + waitTime);
         console.log(`${session.address}: Start waiting for ${timeMs / Time.MINUTE} minutes`);
         await promise;
     }
@@ -280,7 +280,7 @@ async function mining(walletAddress: string) {
 }
 
 const walletAddresses = [
-    // // hemi
+    // hemi
     // "0x7a6e3be8fda47039473d2aa39bfc89aa54ddccfa", // OKX (ETH)
     // "0x8bec3ce1dc85a0759a4e40ebe859d48f30a93ca9", // account 1 (ETH)
     // "0xea87e804debaf4e5016b02068ca3f6e3abe4a080", // account 2 (ETH)
@@ -297,8 +297,6 @@ const walletAddresses = [
     // "0xb17c476aec85ccecbb522b47549e4ffa53b038eb", // account 13 (ETH)
     // "0xe88955cb472f4ba743343e051ee502bc891edf33", // account 14 (ETH)
     // "0x5f7fd517588df57b05e4b74e59ddcb90842829a1", // account 15 (ETH)
-
-    // // rasperry pi
     // "0x4a5334040df90b203d78edeaae0320d4f1329197", // account 16 (ETH)
     // "0xe57b67d85a3fc9622dad3ee86966545bc5e2907c", // account 17 (ETH)
     // "0x60261383f9a69146bdf2443be35d4911191ced05", // account 18 (ETH)
@@ -309,11 +307,125 @@ const walletAddresses = [
     // "0xea0a90da2802ffa1572e801a6684827e1868b55f", // account 23 (ETH)
     // "0xf120a9dcff42454b05527192b8f89ba22991374b", // account 24 (ETH)
     // "0x280eb55775e47ffe31179cf9cfe51c2ae5be7ddc", // account 25 (ETH)
-    "0xc4802ac037e92c97732e18b9202ff1ad576b381c", // account 26 (ETH)
-    "0xcd89a708ba551a506ab91acca878dca058ae4263", // account 27 (ETH)
-    "0xa308186fef23826061eb0cf03996782b338599a1", // account 28 (ETH)
-    "0x9d79069d14f29aff5aed037c32daf6a9984650ee", // account 29 (ETH)
-    "0x12e84207ed531087fdcf092bb4a9bef536cabedc", // account 30 (ETH)
+    // "0xc4802ac037e92c97732e18b9202ff1ad576b381c", // account 26 (ETH)
+    // "0xcd89a708ba551a506ab91acca878dca058ae4263", // account 27 (ETH)
+    // "0xa308186fef23826061eb0cf03996782b338599a1", // account 28 (ETH)
+    // "0x9d79069d14f29aff5aed037c32daf6a9984650ee", // account 29 (ETH)
+    // "0x12e84207ed531087fdcf092bb4a9bef536cabedc", // account 30 (ETH)
+    // "0x21dc8A1B765ba34C6B2E23753584D75DaDEDa26f", // account 31 (ETH)
+	// "0x4F13f4fa6a8Df06D7cbA129622E3eAa8a9Acc3fd", // account 32 (ETH)
+	// "0xb97C68A48eeAa07Ee766e161556d615ddcB6302F", // account 33 (ETH)
+	// "0xF98d00f66081f741E116dC9B19044D7cf5999F12", // account 34 (ETH)
+	// "0x047c94A021A1106Ef9fb02d0AB3aBfDb663565fB", // account 35 (ETH)
+	// "0x2afE2a6242a7aC7A8854eca5aeD9A2cE34fd72F8", // account 36 (ETH)
+	// "0x1d4B4bDFADd0AFAfB7B1BE299b637748870dBE04", // account 37 (ETH)
+	// "0x55399390E9d8DaFdc93044F435B63B440bE73BD6", // account 38 (ETH)
+	// "0x223A188bfD8Ae456C37EB7b35F8475E5Cd0fa30B", // account 39 (ETH)
+	// "0xDd8012909e89e727ec7262e94def69090AB37BA4", // account 40 (ETH)
+	// "0x83D51928BDa6B97a62b0C0F27e7fE868c7eADdf7", // account 41 (ETH)
+	// "0xDc865283672b96033AAa6912a30C38e78E8A1CAb", // account 42 (ETH)
+	// "0x5DDe129c906045DDbA748A90Fe6e8440752f14d5", // account 43 (ETH)
+	// "0x7677B892Dd8A86e5Df5aAa43176c16DaB74aA883", // account 44 (ETH)
+	// "0x29759ee863e74C65c532Fe41A9b80A943020ec0f", // account 45 (ETH)
+	// "0x1972d312FeF4644F5eB9810709543b12A02fa89C", // account 46 (ETH)
+	// "0xD05f0ae424a7c1C0A185ff0cf1AB26a27dA7126F", // account 47 (ETH)
+	// "0x710f59b7d7B443Cd9C76768c2a402461e44c05A0", // account 48 (ETH)
+	// "0xC77085821D034C88497ff21218582D69d7D5f4E3", // account 49 (ETH)
+	// "0x61A977Af0ac707e037773452A1c33835CF8D8522", // account 50 (ETH)
+	// "0x50c849e6bB92cA32c004b94528279c67000E4F6b", // account 51 (ETH)
+	// "0x045C4CD3B390A05F3908c717f851e2FD40b9bDA7", // account 52 (ETH)
+	// "0x87d2840ea1a0A796163ACDca4B3d249f868E895d", // account 53 (ETH)
+	// "0x7db6F970B593e60eE8ce28aAe6B580D4F3F3e096", // account 54 (ETH)
+	// "0x8E5ddC8C274704A7f76595Dae6831Cc65f582c5a", // account 55 (ETH)
+	// "0x9fDA81fC749966512C85F718D740EAE41D240672", // account 56 (ETH)
+	// "0xf34189147edA4f69f6E7FC2e428F226Dbe88861B", // account 57 (ETH)
+	// "0x18dD4f358c783cda37c9ee96bE0BB6005C047B24", // account 58 (ETH)
+	// "0x3167e32BB1e11BB6b11AFf14e371AFE4EaB421Ed", // account 59 (ETH)
+	// "0x8774d524f8c793a84373ca56b3631dc4410eA478", // account 60 (ETH)
+	// "0xbcA40b351F79B2A8dA231625Fc01412FC68a380a", // account 61 (ETH)
+	// "0x303687e230F452EF24CB410E878e9Db9ecfC936e", // account 62 (ETH)
+	// "0x0B5d9cD134A1f981847640a50577B0F11dC218E1", // account 63 (ETH)
+	// "0xc640238c4ef0C321a751910653b97eBDb3a67E90", // account 64 (ETH)
+	// "0xAb448cF47c1709673947f7bF851c1946ae4FA81F", // account 65 (ETH)
+	// "0x03e680b84bbf9Af8d3b15E9468D58eaE151fFF6F", // account 66 (ETH)
+	// "0xC34F6184708356DA479CCB6aF07F48849fCf6DFb", // account 67 (ETH)
+	// "0x3FDCadA1e3e6055925F99deD4d106b67b097F91e", // account 68 (ETH)
+	// "0x54A2F048E76215ABa95f6640dE9577749dC38947", // account 69 (ETH)
+	// "0x9507B7f2b26fbB4636A1cD845f195787Ec50403a", // account 70 (ETH)
+	// "0x26e04806b39C7F670F9F8D9Ac89FEaf639893e04", // account 71 (ETH)
+	// "0x299148bF8ed378FE29fF53B125f5D9A9CC71560D", // account 72 (ETH)
+	// "0x6d7D34ced24F6d75723956429Cc4a343f8A15F52", // account 73 (ETH)
+	// "0xD8A3BE38D9f1EE282a403FB5b4295D7BaA67B507", // account 74 (ETH)
+	// "0x3806E5feA2aCaBd497A9d3344f530d441c694b76", // account 75 (ETH)
+	// "0x040cf71Dcd78bE3F35f188210F291670E82639fC", // account 76 (ETH)
+	// "0x1D6E1976cD8FEd9F03b399236227f09BA3d1032b", // account 77 (ETH)
+	// "0x645587121c53ca14c8BD4cD43047C57FEeF616fE", // account 78 (ETH)
+	// "0xafE1A7B31d5C3Ec9032A93811873Dbbe13e1D43c", // account 79 (ETH)
+	// "0xcF27114d0460673E6e241bADB62EE48D1187dB3d", // account 80 (ETH)
+
+    // rasperry pi
+	// "0xEea8C9655Cc474eD9bc38A1706a54906f21B064E", // account 81 (ETH)
+	// "0xdD3898935970Aa2fBa378Ab7993255860d48442c", // account 82 (ETH)
+	// "0x21174F9D2067C903C593eFE1997b6E8a0785cfeb", // account 83 (ETH)
+	// "0xdd4354cE6420B50eF8604d7101449A83bd20C076", // account 84 (ETH)
+	// "0x5A872d86c93f9248d19B48b0269C9Bb98Fb98ACd", // account 85 (ETH)
+	// "0x7262A938605CE7349f0A01F14d8ebAf65C906Cbd", // account 86 (ETH)
+	// "0x52DA92396830ac5cE4F6A58A065663f1Ae9333DD", // account 87 (ETH)
+	// "0x72bb044aD988733c80C4ed10a65336e55351AB36", // account 88 (ETH)
+	// "0xC359dFF17A0058f56C20953a96c9De539B8eb0E8", // account 89 (ETH)
+	// "0xe17F73A885A974D9ae22A16769eC96Ba9282C4a3", // account 90 (ETH)
+	// "0x61Fc8edf761B18b75202c82F264deFf63012035C", // account 91 (ETH)
+	// "0x536BB05B2BbFaA188bd2DD46c0aCF4A27346891a", // account 92 (ETH)
+	// "0x171cd4bdE014567E0A27a8D73575696f301E81C5", // account 93 (ETH)
+	// "0xbBDd33b84EB6889016734D97e41B9F32AEf53a73", // account 94 (ETH)
+	// "0xcDF7aCCAce75519ada68249Ea610D962753F7284", // account 95 (ETH)
+	// "0x6ead2e0c39232F4328abc9D7028A62681Fe5Bf28", // account 96 (ETH)
+	// "0x9349654C92fe0771a488E69F5D102300612B1Ec1", // account 97 (ETH)
+	// "0xB9a5e1668262AF35c1EeCC10D4D87fDe053Fb532", // account 98 (ETH)
+	// "0xaCd79563e61A0c44bCB69F0f876D0E9974801f6b", // account 99 (ETH)
+	// "0x99a248Dac698CFa0c18e8aaea0D77C19AFAdb0C1", // account 100 (ETH)
+
+    // unallocated
+	// "0xBc214D794Cf4C850CCCCE9f736985882bbfeE13F", // account 101 (ETH)
+	// "0xacD989AAC5CbeA9b515732EB09F56FeCdE1117a8", // account 102 (ETH)
+	// "0xd4e60Bd07e47C9a7cEB278d692ff09E3296974Fc", // account 103 (ETH)
+	// "0xA95b48c5c4c8B731191Bb1807b01c0280bb640D4", // account 104 (ETH)
+	// "0x5f3961f997351090f90e5055e3c185679aF8ddE0", // account 105 (ETH)
+	// "0xc562c7d8221e7D60717ae716651c7E2067BE9D14", // account 106 (ETH)
+	// "0x5A906034D95A2472E2BdFE9f5cB04Ac608fdC9dd", // account 107 (ETH)
+	// "0x01A5b2a45CF27B46791711684389070F5c922031", // account 108 (ETH)
+	// "0x6Ba4f5e04B27E0d40f1CF9355AcE9980bEb1cCb6", // account 109 (ETH)
+	// "0xcdFF3482BB6d5e093bfD0Bc616adf42c7a99F3E1", // account 110 (ETH)
+	// "0xA5E332f13C9956949E513Ef960AcB9987d8d0167", // account 111 (ETH)
+	// "0x3c7e27b926ff09bE00A9f3Fde93d39390DB28500", // account 112 (ETH)
+	// "0x987074A69E6c58F9e926F672F4548a9f9FD3d2B8", // account 113 (ETH)
+	// "0xA174Ad4B938d81efA572AEa04250d62FA0fd0274", // account 114 (ETH)
+	// "0xF660F7a99d2AbE64925a565D12ed00b6c51865b4", // account 115 (ETH)
+	// "0xFfDeb1875A30740Ba857CA473958CF04C9DBf6Ba", // account 116 (ETH)
+	// "0x4106C80fDAD7F173F32Bc54307a0CC9ac6970fb3", // account 117 (ETH)
+	// "0xE7ec69D9e9eCF86582B8948C0023311850B79b1a", // account 118 (ETH)
+	// "0x4e1b20a3775203f38643F3AD76Dfb5056465e38a", // account 119 (ETH)
+	// "0x53ff0685AbD7Debc680Fd13840CE49eFDf18257a", // account 120 (ETH)
+	// "0xc25f2a603a5353A213F8DAE142Ce7FFCF3D33b60", // account 121 (ETH)
+	// "0xb4A973f9192a0A3dfC59E00B622dF977A95CEB29", // account 122 (ETH)
+	// "0xEe232041eef20E1FEc6Eb43A10bC82719Fa1c44a", // account 123 (ETH)
+	// "0xCc105A7e10CD633AcEF27455f113817Dd83C6737", // account 124 (ETH)
+	// "0x79e55Ef388E15dd8CAbE0a66Fefa5d6c759F301B", // account 125 (ETH)
+	// "0xFDcED5abAfeCF764cD8a630b42Bc8B6Fc4109c3d", // account 126 (ETH)
+	// "0x73f11b05016Aa448EFF59644E87CDB565c784D6E", // account 127 (ETH)
+	// "0xB2807EAe2b16Ad3f92C52c14A127ace3f85A5209", // account 128 (ETH)
+	// "0x0Df0D9eA169189ff60260E6B5289688EaF202783", // account 129 (ETH)
+	// "0xeffF6e807756aae700bE0f37933cEDD50E7720E2", // account 130 (ETH)
+	// "0x0b0Fb1e9d567341C9013bA7B10d23620a426E96c", // account 131 (ETH)
+	// "0xf352289Bb35C51a2EbD2d6c309b24e04afD7528a", // account 132 (ETH)
+	// "0xd2dAfD64b821292b75c35Ced2bEcE3FEF4cCFcA6", // account 133 (ETH)
+	// "0x2b34D94E42cDa2CddBDBb7557733A96B8B58739e", // account 134 (ETH)
+	// "0x47c9972C32EC710D11094A71eEc1608eD69A37B0", // account 135 (ETH)
+	// "0x32d157d5B1244d5e718aeD40103F728eeA006A90", // account 136 (ETH)
+	// "0x6Db2A6Cc2B969959a409d4B745F94cFf855F2bC4", // account 137 (ETH)
+	// "0xa5cAa36B4B1619eccBc0C4916500B0939ed113BE", // account 138 (ETH)
+	// "0x3381DFFc48893FC0C242b11aA46B0Da5674BDD38", // account 139 (ETH)
+	// "0x3C958E5E105cE7090BDEaeb384B1B077671e7d85", // account 140 (ETH)
 
 ];
 async function start() {
@@ -321,11 +433,12 @@ async function start() {
     for(let i = 0; i < walletAddresses.length; i++) {
         promises.push((async () => {
             const walletAddress = walletAddresses[i];
-            // const { promise, timeMs } = Timer.sleepRandom(0, 1 * Time.MINUTE);
-            // console.log(`${walletAddress}: Start first sleeping for ${timeMs / Time.SECOND} seconds`);
-            // await promise;
+            const { promise, timeMs } = Timer.sleepRandom(0, 30 * Time.MINUTE);
+            console.log(`${walletAddress}: Start first sleeping for ${timeMs / Time.SECOND} seconds`);
+            await promise;
 
-            const MAX_REST_PERIOD = 8 * Time.HOUR;
+            const MIN_REST_PERIOD = 2 * Time.HOUR;
+            const MAX_REST_PERIOD = 5 * Time.HOUR;
             let currentRestTime = Date.now();
             const ERROR_THRESHHOLD = 10;
             let countError = 0;
@@ -343,7 +456,7 @@ async function start() {
                     // }
 
                     console.log(`${walletAddress}: Start long resting period`);
-                    const { promise, timeMs } = Timer.sleepRandom(0, MAX_REST_PERIOD);
+                    const { promise, timeMs } = Timer.sleepRandom(MIN_REST_PERIOD, MAX_REST_PERIOD);
                     console.log(`${walletAddress}: Sleeping for ${timeMs / Time.MINUTE} minutes`);
                     await promise;
                     currentRestTime = Date.now();
