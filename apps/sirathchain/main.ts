@@ -492,10 +492,10 @@ start();
 const pointWithWeights = [
     {
         value: 5,
-        weight: 1,
+        weight: 3,
     }, {
         value: 6,
-        weight: 1,
+        weight: 4,
     }, {
         value: 7,
         weight: 3,
@@ -519,7 +519,7 @@ const pointWithWeights = [
         weight: 1,
     }, {
         value: 14,
-        weight: 4,
+        weight: 3,
     }, {
         value: 15,
         weight: 2,
