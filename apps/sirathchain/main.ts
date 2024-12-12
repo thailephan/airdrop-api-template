@@ -236,7 +236,7 @@ const startMiningSession = async (request: StartMiningSessionRequest): Promise<S
 const processMiningSession = async (session: { id: number, address: string, end_time: number, token_amount: number }) => {
     const waitTime = session.end_time - Date.now();
     if (waitTime > 0) {
-        const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + waitTime, 5 * Time.MINUTE + waitTime);
+        const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + waitTime, 30 * Time.MINUTE + waitTime);
         console.log(`${session.address}: Start waiting for ${timeMs / Time.MINUTE} minutes`);
         await promise;
     }
@@ -437,15 +437,15 @@ async function start() {
             console.log(`${walletAddress}: Start first sleeping for ${timeMs / Time.SECOND} seconds`);
             await promise;
 
-            const MIN_REST_PERIOD = 2 * Time.HOUR;
-            const MAX_REST_PERIOD = 5 * Time.HOUR;
+            const MIN_REST_PERIOD = 6 * Time.HOUR;
+            const MAX_REST_PERIOD = 9 * Time.HOUR;
             let currentRestTime = Date.now();
             const ERROR_THRESHHOLD = 10;
             let countError = 0;
 
             while(true) {
                 const nowUnix = Date.now();
-                const shouldRest = currentRestTime + 20 * Time.HOUR <= nowUnix && Math.random() > 0.5;
+                const shouldRest = currentRestTime + 14 * Time.HOUR <= nowUnix && Math.random() > 0.5;
 
                 if (shouldRest) {
                     // const sessions = await getUnclaimedRewards(walletAddress);
