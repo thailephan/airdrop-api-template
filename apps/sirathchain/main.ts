@@ -236,7 +236,7 @@ const startMiningSession = async (request: StartMiningSessionRequest): Promise<S
 const processMiningSession = async (session: { id: number, address: string, end_time: number, token_amount: number }) => {
     const waitTime = session.end_time - Date.now();
     if (waitTime > 0) {
-        const { promise, timeMs } = Timer.sleepRandom(2 * Time.MINUTE + waitTime, 30 * Time.MINUTE + waitTime);
+        const { promise, timeMs } = Timer.sleepRandom(15 * Time.MINUTE + waitTime, 60 * Time.MINUTE + waitTime);
         console.log(`${session.address}: Start waiting for ${timeMs / Time.MINUTE} minutes`);
         await promise;
     }
@@ -386,16 +386,16 @@ const walletAddresses = [
 	// "0x99a248Dac698CFa0c18e8aaea0D77C19AFAdb0C1", // account 100 (ETH)
 
     // unallocated
-	// "0xBc214D794Cf4C850CCCCE9f736985882bbfeE13F", // account 101 (ETH)
-	// "0xacD989AAC5CbeA9b515732EB09F56FeCdE1117a8", // account 102 (ETH)
-	// "0xd4e60Bd07e47C9a7cEB278d692ff09E3296974Fc", // account 103 (ETH)
-	// "0xA95b48c5c4c8B731191Bb1807b01c0280bb640D4", // account 104 (ETH)
-	// "0x5f3961f997351090f90e5055e3c185679aF8ddE0", // account 105 (ETH)
-	// "0xc562c7d8221e7D60717ae716651c7E2067BE9D14", // account 106 (ETH)
-	// "0x5A906034D95A2472E2BdFE9f5cB04Ac608fdC9dd", // account 107 (ETH)
-	// "0x01A5b2a45CF27B46791711684389070F5c922031", // account 108 (ETH)
-	// "0x6Ba4f5e04B27E0d40f1CF9355AcE9980bEb1cCb6", // account 109 (ETH)
-	// "0xcdFF3482BB6d5e093bfD0Bc616adf42c7a99F3E1", // account 110 (ETH)
+	"0xBc214D794Cf4C850CCCCE9f736985882bbfeE13F", // account 101 (ETH)
+	"0xacD989AAC5CbeA9b515732EB09F56FeCdE1117a8", // account 102 (ETH)
+	"0xd4e60Bd07e47C9a7cEB278d692ff09E3296974Fc", // account 103 (ETH)
+	"0xA95b48c5c4c8B731191Bb1807b01c0280bb640D4", // account 104 (ETH)
+	"0x5f3961f997351090f90e5055e3c185679aF8ddE0", // account 105 (ETH)
+	"0xc562c7d8221e7D60717ae716651c7E2067BE9D14", // account 106 (ETH)
+	"0x5A906034D95A2472E2BdFE9f5cB04Ac608fdC9dd", // account 107 (ETH)
+	"0x01A5b2a45CF27B46791711684389070F5c922031", // account 108 (ETH)
+	"0x6Ba4f5e04B27E0d40f1CF9355AcE9980bEb1cCb6", // account 109 (ETH)
+	"0xcdFF3482BB6d5e093bfD0Bc616adf42c7a99F3E1", // account 110 (ETH)
 	// "0xA5E332f13C9956949E513Ef960AcB9987d8d0167", // account 111 (ETH)
 	// "0x3c7e27b926ff09bE00A9f3Fde93d39390DB28500", // account 112 (ETH)
 	// "0x987074A69E6c58F9e926F672F4548a9f9FD3d2B8", // account 113 (ETH)
@@ -433,7 +433,7 @@ async function start() {
     for(let i = 0; i < walletAddresses.length; i++) {
         promises.push((async () => {
             const walletAddress = walletAddresses[i];
-            const { promise, timeMs } = Timer.sleepRandom(0, 30 * Time.MINUTE);
+            const { promise, timeMs } = Timer.sleepRandom(10 * Time.SECOND, 30 * Time.MINUTE);
             console.log(`${walletAddress}: Start first sleeping for ${timeMs / Time.SECOND} seconds`);
             await promise;
 
@@ -445,7 +445,7 @@ async function start() {
 
             while(true) {
                 const nowUnix = Date.now();
-                const shouldRest = currentRestTime + 14 * Time.HOUR <= nowUnix && Math.random() > 0.5;
+                const shouldRest = currentRestTime + 10 * Time.HOUR <= nowUnix && Math.random() > 0.5;
 
                 if (shouldRest) {
                     // const sessions = await getUnclaimedRewards(walletAddress);
@@ -488,43 +488,149 @@ async function start() {
 }
 start();
 
-
 const pointWithWeights = [
     {
         value: 5,
         weight: 3,
     }, {
         value: 6,
-        weight: 4,
+        weight: 1,
     }, {
         value: 7,
-        weight: 3,
+        weight: 1,
     }, {
         value: 8,
-        weight: 2,
+        weight: 1,
     }, {
         value: 9,
         weight: 2,
     }, {
         value: 10,
-        weight: 4,
-    }, {
-        value: 11,
         weight: 3,
     }, {
-        value: 12,
+        value: 11,
         weight: 2,
+    }, {
+        value: 12,
+        weight: 1,
     }, {
         value: 13,
         weight: 1,
     }, {
         value: 14,
-        weight: 3,
+        weight: 1,
     }, {
         value: 15,
+        weight: 4,
+    }, {
+        value: 16,
+        weight: 1,
+    }, {
+        value: 17,
+        weight: 1,
+    }, {
+        value: 18,
+        weight: 1,
+    }, {
+        value: 19,
+        weight: 1,
+    }, {
+        value: 20,
+        weight: 1,
+    }, {
+        value: 21,
+        weight: 1,
+    }, {
+        value: 22,
+        weight: 1,
+    }, {
+        value: 23,
+        weight: 1,
+    }, {
+        value: 24,
+        weight: 1,
+    }, {
+        value: 25,
+        weight: 3,
+    }, {
+        value: 26,
+        weight: 1,
+    }, {
+        value: 27,
         weight: 2,
+    }, {
+        value: 28,
+        weight: 1,
+    }, {
+        value: 29,
+        weight: 1,
+    }, {
+        value: 30,
+        weight: 3,
+    }, {
+        value: 31,
+        weight: 1,
+    }, {
+        value: 32,
+        weight: 1,
+    }, {
+        value: 33,
+        weight: 1,
+    }, {
+        value: 34,
+        weight: 2,
+    }, {
+        value: 35,
+        weight: 1,
+    }, {
+        value: 36,
+        weight: 1,
+    }, {
+        value: 37,
+        weight: 1,
+    }, {
+        value: 38,
+        weight: 2,
+    }, {
+        value: 39,
+        weight: 1,
+    }, {
+        value: 40,
+        weight: 3,
+    }, {
+        value: 41,
+        weight: 1,
+    }, {
+        value: 42,
+        weight: 1,
+    }, {
+        value: 43,
+        weight: 1,
+    }, {
+        value: 44,
+        weight: 1,
+    }, {
+        value: 45,
+        weight: 3,
+    }, {
+        value: 46,
+        weight: 1,
+    }, {
+        value: 47,
+        weight: 1,
+    }, {
+        value: 48,
+        weight: 2,
+    }, {
+        value: 49,
+        weight: 1,
+    }, {
+        value: 50,
+        weight: 3,
     },
-]
+];
+
+
 function selectRandomPointByWeight(data: {value: number, weight: number}[]) {
     const totalWeight = data.reduce((weight, item) => item.weight + weight, 0);
     const randomValue = Math.random() * totalWeight;
